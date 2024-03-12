@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 14:12:21 by fnascime          #+#    #+#             */
-/*   Updated: 2024/03/12 15:53:06 by fnascime         ###   ########.fr       */
+/*   Created: 2023/10/18 16:32:03 by fnascime          #+#    #+#             */
+/*   Updated: 2023/10/18 17:29:31 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int	main(int c, char **v, char **envp)
+int	ft_isdigit(int c)
 {
-	char	*s;
-	(void)c;
-	(void)v;
-	(void)envp;
-
-	while (1)
-	{
-		s = readline("minishell$ ");
-		if (s == NULL)
-			break ;
-		if (ft_strlen(s) > 0)
-			add_history(s);
-		if (ft_strncmp(s, "exit", 4) == 0)
-		{
-			free(s);
-			break ;
-		}
-		free(s);
-	}
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

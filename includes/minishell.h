@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 14:12:21 by fnascime          #+#    #+#             */
-/*   Updated: 2024/03/12 15:53:06 by fnascime         ###   ########.fr       */
+/*   Created: 2024/03/12 14:08:49 by fnascime          #+#    #+#             */
+/*   Updated: 2024/03/12 14:09:32 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-int	main(int c, char **v, char **envp)
-{
-	char	*s;
-	(void)c;
-	(void)v;
-	(void)envp;
+#include "libs.h"
 
-	while (1)
-	{
-		s = readline("minishell$ ");
-		if (s == NULL)
-			break ;
-		if (ft_strlen(s) > 0)
-			add_history(s);
-		if (ft_strncmp(s, "exit", 4) == 0)
-		{
-			free(s);
-			break ;
-		}
-		free(s);
-	}
-}
+#endif

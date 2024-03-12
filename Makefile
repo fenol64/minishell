@@ -1,27 +1,32 @@
 NAME = minishell 
 
-RAW_SRCS = $(shell find .)
+RAW_SRCS = $(shell find src)
 SRCS = $(filter %.c, $(RAW_SRCS))
 OBJS = $(SRCS:.c=.o)
 
 COMPILER = cc -Wall -Wextra -Werror -I ./includes
+LIBS_ARCHIVE = libs/libft/libft.a
 
 .c.o:
 	@ $(COMPILER) -c $< -o $(<:.c=.o)
+	@printf "🚧 minishell compiling $<                       \r"
 
 all: $(NAME)
 
+libs:
+	@ make -C libs/libft
+
 $(NAME):	$(OBJS)
-	@ $(COMPILER) -o $(NAME) $(OBJS)
-	@ echo "✅ minishell compile complete!\n"
+	@ $(COMPILER) -o $(NAME) $(OBJS) $(LIBS_ARCHIVE) -lreadline
+	@ printf "\n🚀 minishell compile complete!\n"
 
 clean:
 	@ rm -f $(OBJS)
-	@ echo "🧹 minishell clean complete!\n"
+	@ printf "🧹 minishell clean complete!\n"
 
 fclean:	clean
 	@rm -f $(NAME)
-	@ echo "🧹 minishell fclean complete!\n"
+	@ printf "🧹 minishell fclean complete!\n"
 
 re: clean fclean $(NAME)
-	@ echo "🔄 minishell re complete!\n"
+	@ printf "🔄 minishell re complete!\n"
