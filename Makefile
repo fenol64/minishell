@@ -21,10 +21,12 @@ $(NAME):	$(OBJS)
 	@ printf "\n🚀 minishell compile complete!\n"
 
 clean:
+	@ make -C libs/libft clean
 	@ rm -f $(OBJS)
 	@ printf "🧹 minishell clean complete!\n"
 
 fclean:	clean
+	@ make -C libs/libft fclean
 	@rm -f $(NAME)
 	@ printf "🧹 minishell fclean complete!\n"
 
