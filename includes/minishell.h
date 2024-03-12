@@ -6,13 +6,13 @@
 /*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:08:49 by fnascime          #+#    #+#             */
-/*   Updated: 2024/03/12 14:09:32 by fnascime         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:10:51 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "libs.h"
+# include "libs.h"
 
 #endif

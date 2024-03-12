@@ -11,12 +11,10 @@ LIBS_ARCHIVE = libs/libft/libft.a
 	@ $(COMPILER) -c $< -o $(<:.c=.o)
 	@printf "🚧 minishell compiling $<                       \r"
 
-all: $(NAME)
-
-libs:
-	@ make -C libs/libft
+all: libs $(NAME)
 
 $(NAME):	$(OBJS)
+	@ make -C libs/libft
 	@ $(COMPILER) -o $(NAME) $(OBJS) $(LIBS_ARCHIVE) -lreadline
 	@ printf "\n🚀 minishell compile complete!\n"
 
@@ -32,3 +30,6 @@ fclean:	clean
 
 re: clean fclean $(NAME)
 	@ printf "🔄 minishell re complete!\n"
+
+norm:
+	@ norminette $(SRCS) includes/minishell.h
