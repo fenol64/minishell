@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fenol64 <fenol64@student.42.fr>            +#+  +:+       +#+        */
+/*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:46:57 by fnascime          #+#    #+#             */
-/*   Updated: 2024/01/08 00:38:04 by fenol64          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:06:00 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+
+#define ARGNULL "argument is NULL"
+#define MEMFAIL "memory allocation failed"
+#define ARGINV "invalid argument"
 
 # ifndef MIN_INT
 #  define MIN_INT -2147483648
@@ -89,6 +93,15 @@ int			ft_tolower(int c);
 int			ft_atoi(const char *nptr);
 int			ft_atoi_base(const char *str, int str_base);
 long int	ft_atol(const char *nptr);
+
+// new functions
+int			ft_incharset(const char c, const char *charset);
+int			ft_perror(const char *s1, const char *s2);
+int			ft_strcmp(const char *str1, const char *str2);
+char		*ft_strchrset(const char *str, const char *charset);
+char		*ft_strcat(char *dst, const char *src);
+char 		*stpcpy(char *dst, const char *src);
+char		*ft_strpdup(const char *start, const char *end);
 
 // malloc functions
 char		*ft_strdup(const char *s);
