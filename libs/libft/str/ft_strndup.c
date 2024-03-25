@@ -6,7 +6,7 @@
 /*   By: paulhenr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:57:01 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/25 15:57:34 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:59:46 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	*ft_strndup(const char *s, size_t n)
 
 	index = 0;
 	if (!s)
-		return (ft_perror(__func__, ARG_NULL), NULL);
+		return (ft_perror(__func__, ARGNULL), NULL);
 	new = malloc(sizeof(char) * (n + 1));
 	if (!new)
-		return (ft_perror(__func__, MEM_FAIL), NULL);
+		return (ft_perror(__func__, MEMFAIL), NULL);
 	while (s[index] && (index < n))
 	{
 		new[index] = s[index];
