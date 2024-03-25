@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/25 16:17:43 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:03:15 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_getenv(char *name, char **envp)
 			return (ft_strchr(envp[index], '=') + 1);
 		index++;
 	}
-	return (NULL);
+	return ("");
 }
 
 static char	*remove_quotes(char *str)

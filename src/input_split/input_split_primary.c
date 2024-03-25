@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/25 16:24:09 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:00:11 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ char	*get_true_input(t_list2 *primary, char **envp)
 	char	*input;
 
 	tmp = primary;
+	if (!primary)
+		return (NULL);
 	while (tmp)
 	{
 		token = (t_token *)tmp->data;

@@ -10,9 +10,9 @@ int	main(int c, char **argv, char **envp)
 	
 	t_list2	*list = input_split1(argv[1]);
 	char	*input = get_true_input(list, envp);
-
 	lst_print2(list, p);
-	printf("%s\n", input);
+	if (input)
+		printf("%s\n", input);
 	free(input);
 	lst_destroy2(list, free_node);
 	(void)c;
