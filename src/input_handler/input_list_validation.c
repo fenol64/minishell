@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 14:05:26 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:29:46 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	validate_input_list(t_list2 *input_list)
 		if (!token)
 			return (false);
 		else if (tmp == input_list && token->type == PIPE)
-			return (false);
+			return (ft_unxerror("|"), false);
 		else if (token2 && is_operator(token->value) && is_operator(token2->value))
 			return (ft_unxerror(token2->value), false);
 		else if (is_operator(token->value) && !tmp->next)
