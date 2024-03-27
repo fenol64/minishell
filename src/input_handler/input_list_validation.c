@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 12:55:48 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:05:26 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	validate_input_list(t_list2 *input_list)
 	if (!input_list)
 		return (false);
 	tmp = input_list;
+	token2 = NULL;
 	while (tmp)
 	{
 		if (tmp->next)
