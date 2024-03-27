@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:37:05 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/26 15:42:29 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:59:21 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_list2	*input_split2(t_token *token)
 	return (first_node(new_list));
 }
 
+static const char	*delimet(int extra);
+
 t_list2	*input_exp_split(const char *str)
 {
 	size_t	i;
@@ -92,18 +94,24 @@ t_list2	*input_exp_split(const char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (enclosed_in_quotes(&str[i]))
-			token = ft_strpdup(&str[i], ft_strchr(&str[i + 1], str[i]) + 1);
+		if (ft_incharset(str[i], "'\""))
+			token = ft_strpdup(&str[i], &str[i + 1]);
+		else if (str[i] == '$')
+			token = ft_strpdup(&str[i], ft_strchrset(&str[i + 1], delimet(1)));
 		else
-			token = ft_strpdup(&str[i], ft_strchrset(&str[i + 1], " \n\t\f\r\v$"));
+			token = ft_strpdup(&str[i], ft_strchrset(&str[i + 1], delimet(0)));
 		node = new_node2(token, free);
 		if (!token || !node)
-		{
-			node = first_node(new_list);
-			return (lst_destroy2(node, free), NULL);
-		}
+			return (lst_destroy2(first_node(new_list), free), NULL);
 		lst_append2(&new_list, node);
 		i += ft_strlen(token);
 	}
 	return (first_node(new_list));
+}
+
+static const char	*delimet(int extra)
+{
+	if (extra)
+		return (" \n\t\f\r\v$'\"");
+	return (" \n\t\f\r\v$");
 }
