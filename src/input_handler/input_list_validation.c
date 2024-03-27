@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 14:36:01 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:38:00 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	validate_input_list(t_list2 *input_list)
 			return (ft_unxerror(token2->value), false);
 		else if (is_operator(token->value) && !tmp->next)
 			return (ft_unxerror("newline"), false);
-		token2 = NULL;		
+		token2 = NULL;
 		tmp = tmp->next;
 	}
 	return (true);
