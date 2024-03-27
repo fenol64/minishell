@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:39:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 10:29:09 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:31:31 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	classify_arg(t_list2 *list);
 
 int	enclosed_in_quotes(const char *str)
 {
-	const char	*quotes = "\"'"; 
+	const char	*quotes = "\"'";
 
 	return (ft_incharset(*str, quotes) && ft_strchr(str + 1, *str));
 }

@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:37:05 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 09:59:21 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:31:16 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	*arg_helper(const char *str)
 {
-	char	*arg;
-	char	*quote;
+	char		*arg;
+	char		*quote;
 	const char	*delimiter = " \n\f\t\r\v|'\"<>$";
 
 	if (ft_incharset(*str, "\"'") && enclosed_in_quotes(str))
@@ -34,6 +34,7 @@ static char	*arg_helper(const char *str)
 	}
 	return (arg);
 }
+
 static t_list2	*get_split(const char *str, t_list2 **list)
 {
 	char	*arg;

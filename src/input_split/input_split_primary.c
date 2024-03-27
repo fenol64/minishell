@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/26 15:10:01 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:30:57 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ t_list2	*get_true_input(const char *input, char **envp)
 
 static void	free_token_node(void *arg)
 {
-	t_token	*token = (t_token *)arg;
+	t_token	*token;
+
+	token = (t_token *)arg;
 	free_token(token, free);
 }

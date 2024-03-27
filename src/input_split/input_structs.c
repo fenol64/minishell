@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:35:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/26 15:06:35 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:31:52 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_token	*new_token(char *value, int type, void (*del)(void *))
 	{
 		if (del)
 			del(value);
-		return(perror(__func__), NULL);
+		return (perror(__func__), NULL);
 	}
 	token->value = value;
 	token->type = type;

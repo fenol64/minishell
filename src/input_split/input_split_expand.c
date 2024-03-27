@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 10:27:46 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:30:25 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*ft_getenv(char *name, char **envp)
 
 static char	*remove_quotes(char *str)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (enclosed_in_quotes(str))
 	{
@@ -52,6 +52,7 @@ static char	*remove_quotes(char *str)
 	}
 	return (tmp);
 }
+
 static char	*expand_str(char *str, char **envp)
 {
 	char	*tmp;
@@ -102,7 +103,7 @@ int	expand_args(t_list2 *list, char **envp, t_token *token)
 	return (true);
 }
 
-static int		expand_single_quotes(t_list2 **list)
+static int	expand_single_quotes(t_list2 **list)
 {
 	char	*data;
 
