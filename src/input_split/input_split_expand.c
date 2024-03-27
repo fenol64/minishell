@@ -6,13 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/25 17:03:15 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:06:13 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stuff/tmp.h"
+#include "input_handler.h"
 
-char	*ft_getenv(char *name, char **envp)
+static char	*ft_getenv(char *name, char **envp)
 {
 	size_t	index;
 
@@ -84,7 +84,7 @@ int	expand_args(t_list2 *list, char **envp, t_token *token)
 		list->data = (void *)remove_quotes((char *)list->data);
 		tmp_list = input_exp_split((char *)list->data);
 		if (!tmp_list)
-			return (false);
+			return (lst_destroy2(list, free), false);
 		tmp = tmp_list;
 		while (tmp)
 		{

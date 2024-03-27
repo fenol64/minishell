@@ -6,11 +6,11 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:37:05 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/25 16:03:30 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:42:29 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stuff/tmp.h"
+#include "input_handler.h"
 
 static char	*arg_helper(const char *str)
 {
@@ -86,8 +86,8 @@ t_list2	*input_exp_split(const char *str)
 	t_list2	*node;
 	char	*token;
 
-	if (!str)
-		return (ft_perror(__func__, ARGNULL), NULL);
+	if (!*str)
+		return (new_node2(ft_strdup(""), free));
 	new_list = NULL;
 	i = 0;
 	while (str[i])

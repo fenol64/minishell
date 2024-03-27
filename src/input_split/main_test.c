@@ -1,4 +1,4 @@
-#include "stuff/tmp.h"
+#include "input_handler.h"
 
 static void	p(void *arg);
 static void free_node(void *arg);
@@ -9,12 +9,18 @@ int	main(int c, char **argv, char **envp)
 		return (printf("Invalid ARGC\n"), 1);
 	
 	t_list2	*list = input_split1(argv[1]);
-	char	*input = get_true_input(list, envp);
+	t_list2	*tlist = get_true_input(argv[1], envp);
+	char	*input = ft_strjoin_token_lst(tlist);
+	printf("1st \n");
 	lst_print2(list, p);
+	printf("\n2nd \n");
+	lst_print2(tlist, p);
+	printf("\n");
 	if (input)
 		printf("%s\n", input);
 	free(input);
 	lst_destroy2(list, free_node);
+	lst_destroy2(tlist, free_node);
 	(void)c;
 	(void)argv;
 	(void)envp;

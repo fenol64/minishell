@@ -6,11 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/25 17:00:11 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:10:01 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stuff/tmp.h"
+#include "input_handler.h"
+
+static void	free_token_node(void *arg);
 
 static t_token	*arg_helper(const char *str, t_token *token)
 {
@@ -89,56 +91,37 @@ t_list2	*input_split1(const char *str)
 	return (first_node(new_list));
 }
 
-char	*get_true_input(t_list2 *primary, char **envp)
+t_list2	*get_true_input(const char *input, char **envp)
 {
-	t_token	*token;
-	t_list2	*arg;
 	t_list2	*tmp;
-	char	*input;
+	t_list2	*primary;
+	t_list2	*tmp_arg;
+	t_token	*token;
 
-	tmp = primary;
+	primary = input_split1(input);
 	if (!primary)
 		return (NULL);
+	tmp = primary;
 	while (tmp)
 	{
 		token = (t_token *)tmp->data;
-		arg = input_split2(token);
-		if (!arg)
-			return (NULL);
-		if (!expand_args(arg, envp, token))
-			return (NULL);
+		tmp_arg = input_split2(token);
+		if (!tmp_arg)
+			return (lst_destroy2(primary, free_token_node), NULL);
+		if (!expand_args(tmp_arg, envp, token))
+			return (lst_destroy2(primary, free_token_node), NULL);
 		free(token->value);
-		token->value = ft_strjoinlst(arg);
-		lst_destroy2(arg, free);
+		token->value = ft_strjoinlst(tmp_arg);
+		lst_destroy2(tmp_arg, free);
+		if (!token->value)
+			return (lst_destroy2(primary, free_token_node), NULL);
 		tmp = tmp->next;
 	}
-	input = ft_strjoinlst_alt(primary);
-	return (input);
+	return (primary);
 }
 
-char	*ft_strjoinlst_alt(t_list2 *list)
+static void	free_token_node(void *arg)
 {
-	char	*joined;
-	size_t	len;
-	t_list2	*tmp;
-
-	len = 0;
-	tmp = list;
-	if (!list)
-		return (ft_perror(__func__, ARGNULL), NULL);
-	while (tmp)
-	{
-		len += ft_strlen(((t_token *)tmp->data)->value);
-		tmp = tmp->next;
-	}
-	joined = malloc((len + 1) * sizeof(char));
-	*joined = '\0';
-	if (!joined)
-		return (perror(__func__), NULL);
-	while (list)
-	{
-		ft_strcat(joined, ((t_token *)list->data)->value);
-		list = list->next;
-	}
-	return (joined);
+	t_token	*token = (t_token *)arg;
+	free_token(token, free);
 }

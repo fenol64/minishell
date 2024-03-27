@@ -6,11 +6,11 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:35:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/21 15:40:39 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:06:35 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stuff/tmp.h"
+#include "input_handler.h"
 
 t_token	*new_token(char *value, int type, void (*del)(void *))
 {

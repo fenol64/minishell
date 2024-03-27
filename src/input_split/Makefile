@@ -6,10 +6,10 @@ OBJS = ${SRCS:.c=.o}
 all:	exe
 
 exe:	$(OBJS)
-	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) stuff/liblist_debug.a stuff/libft_debug.a
+	cc -I./stuff -Wall -Wextra -ggdb3 -o exe $(OBJS) stuff/liblist_debug.a stuff/libft_debug.a
 
 %.o:	%.c
-	cc -Wall -Wextra -ggdb3 -c $< -o $@ 
+	cc -I./stuff -Wall -Wextra -ggdb3 -c $< -o $@ 
 
 mclean: all clean
 
