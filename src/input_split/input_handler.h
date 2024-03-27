@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/26 15:09:42 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:36:00 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ typedef struct s_token
 	char		*value;
 	t_tk_name	type;
 }				t_token;
+
+typedef struct s_proc
+{
+	int		outfd;
+	int		infd;
+	int		pfd[2];
+	char	**argv;
+	char	**envp;
+}			t_proc;
 
 //	input_split_primary.c
 t_list2		*input_split1(const char *str);
