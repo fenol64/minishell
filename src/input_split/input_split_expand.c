@@ -6,14 +6,17 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/26 15:06:13 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:27:46 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
 
+static int	expand_single_quotes(t_list2 **list);
+
 static char	*ft_getenv(char *name, char **envp)
 {
+	size_t	var_size;
 	size_t	index;
 
 	if (!envp || !*envp || !name)
@@ -21,8 +24,11 @@ static char	*ft_getenv(char *name, char **envp)
 	index = 0;
 	while (envp[index])
 	{
-		if (!ft_strncmp(envp[index], name, ft_strlen(name)))
-			return (ft_strchr(envp[index], '=') + 1);
+		if (!ft_strchr(envp[index], '='))
+			return (ft_perror(__func__, "Env doesn't have equal sign"), NULL);
+		var_size = ft_strchr(envp[index], '=') - envp[index];
+		if (!ft_strncmp(envp[index], name, var_size / sizeof(char)))
+			return (ft_strchr(envp[index], '=') + sizeof(char));
 		index++;
 	}
 	return ("");
@@ -75,12 +81,8 @@ int	expand_args(t_list2 *list, char **envp, t_token *token)
 
 	while (list)
 	{
-		if (enclosed_in_quotes((char *)list->data) && *(char *)list->data == '\'')
-		{
-			list->data = (void *)remove_quotes((char *)list->data);
-			list = list->next;
+		if (expand_single_quotes(&list))
 			continue ;
-		}
 		list->data = (void *)remove_quotes((char *)list->data);
 		tmp_list = input_exp_split((char *)list->data);
 		if (!tmp_list)
@@ -100,29 +102,16 @@ int	expand_args(t_list2 *list, char **envp, t_token *token)
 	return (true);
 }
 
-char	*ft_strjoinlst(t_list2 *list)
+static int		expand_single_quotes(t_list2 **list)
 {
-	char	*joined;
-	size_t	len;
-	t_list2	*tmp;
+	char	*data;
 
-	len = 0;
-	tmp = list;
-	if (!list)
-		return (ft_perror(__func__, ARGNULL), NULL);
-	while (tmp)
+	data = (char *)(*list)->data;
+	if (enclosed_in_quotes(data) && *data == '\'')
 	{
-		len += ft_strlen((char *)tmp->data);
-		tmp = tmp->next;
+		(*list)->data = (void *)remove_quotes(data);
+		*list = (*list)->next;
+		return (true);
 	}
-	joined = malloc((len + 1) * sizeof(char));
-	*joined = '\0';
-	if (!joined)
-		return (perror(__func__), NULL);
-	while (list)
-	{
-		ft_strcat(joined, (char *)list->data);
-		list = list->next;
-	}
-	return (joined);
+	return (false);
 }
