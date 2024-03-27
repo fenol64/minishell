@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 10:36:00 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:54:14 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ const char	*is_operator(const char *str);
 //	input_split_structs.c
 void		free_token(t_token *token, void (*del)(void *));
 t_token		*new_token(char *value, int type, void (*del)(void *));
+
+//	input_list_validation.c
+int			validate_input_list(t_list2 *input_list);
 
 #endif

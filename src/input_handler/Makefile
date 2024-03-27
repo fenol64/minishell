@@ -1,5 +1,5 @@
 SRCS =	input_split_primary.c input_split_utils.c main_test.c input_structs.c \
-		input_split_secondary.c input_split_expand.c
+		input_split_secondary.c input_split_expand.c input_list_validation.c input_list_join.c
 
 OBJS = ${SRCS:.c=.o}
 
