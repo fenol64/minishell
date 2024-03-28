@@ -6,13 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 14:38:00 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/28 10:11:23 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
 
-static int	repeated_operator(const char *s1, const char *s2);
+static int	repeated_operator(t_token *t1, t_token *t2);
 static void	ft_unxerror(const char *token);
 
 int	validate_input_list(t_list2 *input_list)
@@ -44,10 +44,18 @@ int	validate_input_list(t_list2 *input_list)
 	return (true);
 }
 
-static int	repeated_operator(const char *s1, const char *s2)
+static int	repeated_operator(t_token *t1, t_token *t2);
 {
-	if (is_operator(s1) && is_operator(s2))
-		return (true);
+	if (t1->type == 2 || t1->type == 3 || t1->type == 5)
+	{
+		if (t2->type == 2 || t2->type == 3 || t2->type == 5)
+			return (true);
+	}
+	if (t1->type == 7 || t1->type == 9)
+	{
+		if (t2->type == 7 || t2->type == 9)
+			return (true);
+	}
 	return (false);
 }
 
