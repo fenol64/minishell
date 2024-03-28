@@ -6,13 +6,11 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 10:30:57 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:21:55 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
-
-static void	free_token_node(void *arg);
 
 static t_token	*arg_helper(const char *str, t_token *token)
 {
@@ -120,7 +118,7 @@ t_list2	*get_true_input(const char *input, char **envp)
 	return (primary);
 }
 
-static void	free_token_node(void *arg)
+void	free_token_node(void *arg)
 {
 	t_token	*token;
 

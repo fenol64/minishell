@@ -10,6 +10,8 @@ int	main(int c, char **argv, char **envp)
 	
 	t_list2	*list = input_split1(argv[1]);
 	t_list2	*tlist = get_true_input(argv[1], envp);
+	if (!validate_input_list(tlist))
+		printf ("INVALID LIST !\n");
 	char	*input = ft_strjoin_token_lst(tlist);
 	printf("1st \n");
 	lst_print2(list, p);

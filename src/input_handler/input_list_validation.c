@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/28 10:11:23 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:03:58 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	validate_input_list(t_list2 *input_list)
 			return (false);
 		else if (tmp == input_list && token->type == PIPE)
 			return (ft_unxerror("|"), false);
-		else if (token2 && repeated_operator(token->value, token2->value))
+		else if (token2 && repeated_operator(token, token2))
 			return (ft_unxerror(token2->value), false);
-		else if (is_operator(token->value) && !tmp->next)
+		else if (operator_type(token) && !tmp->next)
 			return (ft_unxerror("newline"), false);
 		token2 = NULL;
 		tmp = tmp->next;
@@ -44,18 +44,10 @@ int	validate_input_list(t_list2 *input_list)
 	return (true);
 }
 
-static int	repeated_operator(t_token *t1, t_token *t2);
+static int	repeated_operator(t_token *t1, t_token *t2)
 {
-	if (t1->type == 2 || t1->type == 3 || t1->type == 5)
-	{
-		if (t2->type == 2 || t2->type == 3 || t2->type == 5)
+	if (operator_type(t1) && operator_type(t2))
 			return (true);
-	}
-	if (t1->type == 7 || t1->type == 9)
-	{
-		if (t2->type == 7 || t2->type == 9)
-			return (true);
-	}
 	return (false);
 }
 
@@ -75,4 +67,13 @@ static void	ft_unxerror(const char *token)
 	size = ft_strlen(new);
 	write(STDERR_FILENO, new, size);
 	free(new);
+}
+
+int	operator_type(t_token *token)
+{
+	if (token && (token->type == OUTPUT || token->type == INPUT))
+		return (true);
+	else if (token && (token->type == APPEND || token->type == HERE_DOC))
+		return (true);
+	return (false);
 }
