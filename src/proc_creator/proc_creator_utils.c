@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:03:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 12:33:28 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:34:39 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	has_quote(const char *str);
 
 void	del_file_node(void *arg)
 {
-	free_file((t_file*)arg, free);
+	free_file((t_file *)arg, free);
 }
 
 char	*get_here_doc(t_file *file)
