@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 09:41:55 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:43:55 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ int	operator_type(t_token *token)
 		return (true);
 	else if (token && (token->type == APPEND || token->type == HERE_DOC))
 		return (true);
-	return (false);
+	return (token->type == PIPE);
 }
