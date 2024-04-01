@@ -6,12 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:03:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/28 14:41:41 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:33:28 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
+static char	*quit_hdoc(t_list2 *tmp, char **name);
 static int	has_quote(const char *str);
 
 void	del_file_node(void *arg)
@@ -27,24 +28,16 @@ char	*get_here_doc(t_file *file)
 	t_list2	*tmp;
 	t_list2	*node;
 
-	(void)expand;
-	file->mode = -42;
-	file->name = remove_quotes(file->name);
-	if (!file->name)
-		return (NULL);
 	tmp = NULL;
 	expand = has_quote(file->name);
 	delimeter = file->name;
 	while (true)
 	{
-		line = readline(">");
+		line = readline("> ");
 		if (!line)
 			return (lst_destroy2(tmp, free), NULL);
 		if (strcmp(delimeter, line) == 0)
-		{
-			file->name = ft_strjoinlst(tmp);
-			return (free(line), lst_destroy2(tmp, free), file->name);
-		}
+			return (free(line), free(delimeter), quit_hdoc(tmp, &file->name));
 		node = new_node2(ft_strjoin(line, "\n"), free);
 		lst_append2(&tmp, node);
 		free(line);
@@ -52,6 +45,20 @@ char	*get_here_doc(t_file *file)
 			return (lst_destroy2(tmp, free), NULL);
 	}
 	return (NULL);
+}
+
+static char	*quit_hdoc(t_list2 *tmp, char **name)
+{
+	if (tmp)
+		*name = ft_strjoinlst(tmp);
+	else
+		*name = ft_strdup("");
+	if (!*name)
+	{
+		ft_perror("HERE DOCUMENT FATAL ERROR!\n");
+		exit(EXIT_FAILURE);
+	}
+	return (lst_destroy2(tmp, free), *name);
 }
 
 static int	has_quote(const char *str)
@@ -63,6 +70,7 @@ static int	has_quote(const char *str)
 	{
 		if (ft_incharset(str[index], "\"'"))
 			return (true);
+		index++;
 	}
 	return (false);
 }
