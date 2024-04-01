@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:35:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:40:25 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:43:26 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	free_main(t_main *main)
 {
 	if (!main)
 		return ;
-	//if (main->std_out != -1)
+	if (main->std_out != -1)
 		close(main->std_out);
-	//if (main->std_in != -1)
-	//	close(main->std_in);
+	if (main->std_in != -1)
+		close(main->std_in);
 	free(main);
 }
 
