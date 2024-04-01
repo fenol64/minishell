@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:35:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:19:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:40:25 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_main	*new_main(char **envp)
 	main = malloc(sizeof(t_main));
 	if (!main)
 		return (perror(__func__), NULL);
-	main->std_in = dup(STDIN_FILENO);
 	main->std_out = dup(STDOUT_FILENO);
+	main->std_in = dup(STDIN_FILENO);
 	if (main->std_in == -1 || main->std_out == -1)
 		return (free_main(main), NULL);
 	main->envp = envp;
@@ -33,8 +33,10 @@ void	free_main(t_main *main)
 {
 	if (!main)
 		return ;
-	close(main->std_out);
-	close(main->std_in);
+	//if (main->std_out != -1)
+		close(main->std_out);
+	//if (main->std_in != -1)
+	//	close(main->std_in);
 	free(main);
 }
 
