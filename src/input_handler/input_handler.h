@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/28 15:02:08 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:38:05 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_list2		*get_true_input(const char *input, char **envp);
 
 //	input_split_expand.c
 int			expand_args(t_list2 *list, char **envp, t_token *token);
-char		*ft_strjoinlst(t_list2 *list);
 char		*remove_quotes(char *str);
 
 //	input_split_secondary.c
@@ -54,16 +53,21 @@ t_list2		*input_exp_split(const char *str);
 
 //	input_split_utils.c
 int			enclosed_in_quotes(const char *str);
-char		*ft_strjoin_token_lst(t_list2 *list);
 t_tk_name	classify_token(const char *str, t_list2	*list);
 const char	*is_operator(const char *str);
 
 //	input_split_structs.c
+char		*ft_strjoin_token_lst(t_list2 *list);
 void		free_token(t_token *token, void (*del)(void *));
 t_token		*new_token(char *value, int type, void (*del)(void *));
+char		*ft_strjoinlst(t_list2 *list);
 
 //	input_list_validation.c
 int			validate_input_list(t_list2 *input_list);
 int			operator_type(t_token *token);
+
+//	input_list_join.c
+char	**matrix_from_list(t_list2	*list);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:28:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 10:29:34 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:37:00 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,29 @@ char	*ft_strjoinlst(t_list2 *list)
 		list = list->next;
 	}
 	return (joined);
+}
+
+char	**matrix_from_list(t_list2	*list)
+{
+	size_t	index;
+	size_t	size;
+	char	**matrix;
+
+	if (!list)
+		return (ft_perror(__func__, ARGNULL), NULL);
+	size = lst_size2(list);
+	matrix = malloc(sizeof(char *) * (size + 1));
+	if (!matrix)
+		return (perror(__func__), NULL);
+	index = 0;
+	while (list)
+	{
+		matrix[index] = ft_strdup((char *)list->data);
+		if (!matrix[index])
+			return (perror(__func__), ft_free_matrix(matrix), NULL);
+		index++;
+		list = list->next;
+	}
+	matrix[index] = NULL;
+	return (matrix);
 }
