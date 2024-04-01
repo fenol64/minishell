@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:28:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 09:41:23 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:41:11 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**matrix_from_lst(t_list2	*list)
 
 	if (!list)
 		return (ft_perror(__func__, ARGNULL), NULL);
-	size = lst_size2(list);
+	size = lst_len2(list);
 	matrix = malloc(sizeof(char *) * (size + 1));
 	if (!matrix)
 		return (perror(__func__), NULL);

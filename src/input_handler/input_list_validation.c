@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 09:43:55 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:54:50 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	validate_input_list(t_list2 *input_list)
 			return (ft_unxerror("|"), false);
 		else if (token2 && repeated_operator(token, token2))
 			return (ft_unxerror(token2->value), false);
-		else if (operator_type(token) && !tmp->next)
+		else if ((operator_type(token) || token->type == PIPE) && !tmp->next)
 			return (ft_unxerror("newline"), false);
 		token2 = NULL;
 		tmp = tmp->next;
@@ -75,5 +75,5 @@ int	operator_type(t_token *token)
 		return (true);
 	else if (token && (token->type == APPEND || token->type == HERE_DOC))
 		return (true);
-	return (token->type == PIPE);
+	return (false);
 }
