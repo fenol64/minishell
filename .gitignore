@@ -1,4 +1,4 @@
 *.o
 exe
 exe.a
-main_test
+main_test.c
