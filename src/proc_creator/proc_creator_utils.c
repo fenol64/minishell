@@ -6,13 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:03:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 13:19:31 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:53:12 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
-static t_list2	*expand_line(t_list2 *node, char **envp);
+static t_list2	*expand_line(t_list2 *node, t_main *main);
 static char		*quit_hdoc(t_list2 *tmp, char **name);
 static int		has_quote(const char *str);
 
@@ -21,7 +21,7 @@ void	del_file_node(void *arg)
 	free_file((t_file *)arg, free);
 }
 
-char	*get_here_doc(t_file *file, char **envp)
+char	*get_here_doc(t_file *file, t_main *main)
 {
 	int		expand;
 	char	*delimeter;
@@ -41,7 +41,7 @@ char	*get_here_doc(t_file *file, char **envp)
 			return (free(line), free(delimeter), quit_hdoc(tmp, &file->name));
 		node = new_node2(ft_strjoin(line, "\n"), free);
 		if (expand == 0)
-			node = expand_line(node, envp);
+			node = expand_line(node, main);
 		lst_append2(&tmp, node);
 		free(line);
 		if (!node)
@@ -77,13 +77,13 @@ static int	has_quote(const char *str)
 	}
 	return (false);
 }
-static t_list2	*expand_line(t_list2 *node, char **envp)
+static t_list2	*expand_line(t_list2 *node, t_main *main)
 {
 	void	*old;
 	if (!node)
 		return (NULL);
 	old = node->data;
-	node->data = hdoc_expand((char *)node->data, envp);
+	node->data = hdoc_expand((char *)node->data, main);
 	free(old);
 	return (node);
 }

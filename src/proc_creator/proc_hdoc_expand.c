@@ -6,33 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:54:10 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 13:14:35 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:51:28 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
-static char	*ft_getenv(char *name, char **envp)
-{
-	size_t	var_size;
-	size_t	index;
-
-	if (!envp || !*envp || !name)
-		return (ft_perror(__func__, ARGNULL), NULL);
-	index = 0;
-	while (envp[index])
-	{
-		if (!ft_strchr(envp[index], '='))
-			return (ft_perror(__func__, "Env doesn't have equal sign"), NULL);
-		var_size = ft_strchr(envp[index], '=') - envp[index];
-		if (!ft_strncmp(envp[index], name, var_size / sizeof(char)))
-			return (ft_strchr(envp[index], '=') + sizeof(char));
-		index++;
-	}
-	return ("");
-}
-
-static char	*expand_str(char *str, char **envp)
+static char	*expand_str(char *str, t_main *main)
 {
 	char	*tmp;
 	char	*new;
@@ -50,11 +30,11 @@ static char	*expand_str(char *str, char **envp)
 		free(tmp);
 		return (new);
 	}
-	new = ft_getenv(str + 1, envp);
+	new = ft_getenv(str + 1, main);
 	return (free(tmp), ft_strdup(new));
 }
 
-char *hdoc_expand(const char *str, char **envp)
+char *hdoc_expand(const char *str, t_main *main)
 {
 	char	*data;
 	t_list2	*tmp2;
@@ -67,7 +47,7 @@ char *hdoc_expand(const char *str, char **envp)
 	while (tmp2)
 	{
 		data = (char *)tmp2->data;
-		tmp2->data = (void *)expand_str(data, envp);
+		tmp2->data = (void *)expand_str(data, main);
 		tmp2 = tmp2->next;
 	}
 	data = ft_strjoinlst(tmp);
