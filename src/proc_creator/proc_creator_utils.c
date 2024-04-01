@@ -6,21 +6,22 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:03:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 12:34:39 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:19:31 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
-static char	*quit_hdoc(t_list2 *tmp, char **name);
-static int	has_quote(const char *str);
+static t_list2	*expand_line(t_list2 *node, char **envp);
+static char		*quit_hdoc(t_list2 *tmp, char **name);
+static int		has_quote(const char *str);
 
 void	del_file_node(void *arg)
 {
 	free_file((t_file *)arg, free);
 }
 
-char	*get_here_doc(t_file *file)
+char	*get_here_doc(t_file *file, char **envp)
 {
 	int		expand;
 	char	*delimeter;
@@ -39,6 +40,8 @@ char	*get_here_doc(t_file *file)
 		if (strcmp(delimeter, line) == 0)
 			return (free(line), free(delimeter), quit_hdoc(tmp, &file->name));
 		node = new_node2(ft_strjoin(line, "\n"), free);
+		if (expand == 0)
+			node = expand_line(node, envp);
 		lst_append2(&tmp, node);
 		free(line);
 		if (!node)
@@ -55,7 +58,7 @@ static char	*quit_hdoc(t_list2 *tmp, char **name)
 		*name = ft_strdup("");
 	if (!*name)
 	{
-		ft_perror("HERE DOCUMENT FATAL ERROR!\n");
+		ft_perror(__func__, "HERE DOCUMENT FATAL ERROR!\n");
 		exit(EXIT_FAILURE);
 	}
 	return (lst_destroy2(tmp, free), *name);
@@ -73,4 +76,14 @@ static int	has_quote(const char *str)
 		index++;
 	}
 	return (false);
+}
+static t_list2	*expand_line(t_list2 *node, char **envp)
+{
+	void	*old;
+	if (!node)
+		return (NULL);
+	old = node->data;
+	node->data = hdoc_expand((char *)node->data, envp);
+	free(old);
+	return (node);
 }

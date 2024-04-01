@@ -6,18 +6,18 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:08:07 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 12:31:52 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:14:21 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
-static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list);
-static int		get_proc_redirections(t_proc *proc, t_list2 *input_list);
-static void		add_redi_file(t_list2 **redi_list, t_list2 *node, int mode);
+static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list, char **envp);
+static int		get_proc_redirections(t_proc *proc, t_list2 *input_list, char **envp);
+static void		add_file(t_list2 **redi_list, t_list2 *node, int mode, char **envp);
 static size_t	cmd_count(t_list2 *input_list);
 
-t_proc	**get_procs(t_list2 *list)
+t_proc	**get_procs(t_list2 *list, char **envp)
 {
 	int		index;
 	t_proc	**procs;
@@ -36,7 +36,7 @@ t_proc	**get_procs(t_list2 *list)
 	index = 0;
 	while (list)
 	{
-		if (!append_to_proc(procs[index], (t_token *)list->data, list))
+		if (!append_to_proc(procs[index], (t_token *)list->data, list, envp))
 			return (free_proc_list(procs, free), NULL);
 		else if (((t_token *)list->data)->type == PIPE)
 			index++;
@@ -45,7 +45,7 @@ t_proc	**get_procs(t_list2 *list)
 	return (procs);
 }
 
-static int	get_proc_redirections(t_proc *proc, t_list2 *input_list)
+static int	get_proc_redirections(t_proc *proc, t_list2 *input_list, char **envp)
 {
 	t_file	*file;
 	t_list2	*node;
@@ -64,13 +64,13 @@ static int	get_proc_redirections(t_proc *proc, t_list2 *input_list)
 	if (!file->name)
 		return (free_file(file, del_file_node), false);
 	if (token->type == INPUT_ARG)
-		add_redi_file(&proc->infiles, node, O_RDONLY);
+		add_file(&proc->infiles, node, O_RDONLY, envp);
 	else if (token->type == OUTPUT_ARG)
-		add_redi_file(&proc->outfiles, node, O_CREAT | O_TRUNC | O_WRONLY);
+		add_file(&proc->outfiles, node, O_CREAT | O_TRUNC | O_WRONLY, envp);
 	else if (token->type == APPEND_ARG)
-		add_redi_file(&proc->outfiles, node, O_CREAT | O_APPEND | O_WRONLY);
+		add_file(&proc->outfiles, node, O_CREAT | O_APPEND | O_WRONLY, envp);
 	else if (token->type == HERE_DOC_ARG)
-		add_redi_file(&proc->infiles, node, -42);
+		add_file(&proc->infiles, node, -42, envp);
 	return (true);
 }
 
@@ -92,18 +92,18 @@ static size_t	cmd_count(t_list2 *input_list)
 	return (count);
 }
 
-static void		add_redi_file(t_list2 **redi_list, t_list2 *node, int mode)
+static void		add_file(t_list2 **redi_list, t_list2 *node, int mode, char **envp)
 {
 	t_file	*file;
 
 	file = (t_file *)node->data;
 	file->mode = mode;
 	if (mode == -42)
-		get_here_doc(file);
+		get_here_doc(file, envp);
 	lst_append2(redi_list, node);
 }
 
-static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list)
+static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list, char **envp)
 {
 	t_list2	*node;
 
@@ -116,7 +116,7 @@ static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list)
 	}
 	else if (token && operator_type(token))
 	{
-		if (!get_proc_redirections(procs, list))
+		if (!get_proc_redirections(procs, list, envp))
 			return (false);
 	}
 	return (true);

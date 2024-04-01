@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 10:35:37 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:12:04 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ typedef struct s_proc
 	t_list2		*infiles;
 }				t_proc;
 
-
-// proc_creator_structs.c
+//	proc_creator_structs.c
 
 t_proc	*new_proc(void);
 void	free_proc(t_proc *proc, void (*del_arg)(void *a)
@@ -46,12 +45,15 @@ void	free_file(t_file *file, void (*del)(void *arg));
 
 void	free_proc_list(t_proc **procs, void (*del)(void *arg));
 
-// proc_from_list.c
+//	proc_from_list.c
 
-t_proc	**get_procs(t_list2 *list);
+t_proc	**get_procs(t_list2 *list, char **envp);
 
-// proc_creator_utils.c
+//	proc_creator_utils.c
 void	del_file_node(void *arg);
-char	*get_here_doc(t_file *file);
+char	*get_here_doc(t_file *file, char **envp);
+
+//	proc_hdoc_expand.c
+char	*hdoc_expand(const char *str, char **envp);
 
 #endif
