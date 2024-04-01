@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:28:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 09:37:00 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:40:53 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*ft_strjoinlst(t_list2 *list)
 	return (joined);
 }
 
-char	**matrix_from_list(t_list2	*list)
+char	**matrix_from_lst(t_list2	*list)
 {
 	size_t	index;
 	size_t	size;

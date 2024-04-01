@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 09:38:05 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:40:58 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			validate_input_list(t_list2 *input_list);
 int			operator_type(t_token *token);
 
 //	input_list_join.c
-char	**matrix_from_list(t_list2	*list);
+char	**matrix_from_lst(t_list2	*list);
 
 
 #endif
