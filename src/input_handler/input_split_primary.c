@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 11:54:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 11:57:12 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_list2	*input_split1(const char *str)
 
 static t_list2	*valid_input_list(t_list2 *list)
 {
-	if (!valid_input_list(list))
+	if (!validate_input_list(list))
 		return (lst_destroy2(list, free_token_node), NULL);
 	return (list);
 }
