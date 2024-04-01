@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:39:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 11:51:05 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:22:06 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,28 @@ const char	*is_operator(const char *str)
 	return (NULL);
 }
 
-void	free_token_node(void *arg)
+void	get_exit_str(unsigned char nbr, char *fstring)
 {
-	t_token	*token;
+	size_t	rem;
+	size_t	index;
 
-	token = (t_token *)arg;
-	free_token(token, free);
+	index = 0 + (nbr == 0);
+	rem = nbr;
+	while (rem)
+	{
+		index++;
+		rem /= 10;
+	}
+	fstring[index] = '\0';
+	while (1)
+	{
+		index--;
+		rem = nbr % 10;
+		fstring[index] = rem + '0';
+		if (nbr == 0)
+			break ;
+		nbr /= 10;
+	}
 }
 
 static int	classify_arg(t_list2 *list)

@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 12:24:50 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:22:56 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 static int	expand_single_quotes(t_list2 **list);
 
-static char	*ft_getenv(char *name, char **envp)
+char	*ft_getenv(char *name, t_main *main)
 {
+	char	**envp;
 	size_t	var_size;
 	size_t	index;
 
-	if (!envp || !*envp || !name)
+	if (!main || !name || !main->envp)
 		return (ft_perror(__func__, ARGNULL), NULL);
 	index = 0;
+	envp = main->envp;
+	if (!ft_strcmp(name, "?"))
+		return (main->exit_status);
 	while (envp[index])
 	{
 		if (!ft_strchr(envp[index], '='))
@@ -53,7 +57,7 @@ char	*remove_quotes(char *str)
 	return (tmp);
 }
 
-static char	*expand_str(char *str, char **envp)
+static char	*expand_str(char *str, t_main *main)
 {
 	char	*tmp;
 	char	*new;
@@ -71,11 +75,11 @@ static char	*expand_str(char *str, char **envp)
 		free(tmp);
 		return (new);
 	}
-	new = ft_getenv(str + 1, envp);
+	new = ft_getenv(str + 1, main);
 	return (free(tmp), ft_strdup(new));
 }
 
-int	expand_args(t_list2 *list, char **envp, t_token *token)
+int	expand_args(t_list2 *list, t_main *main, t_token *token)
 {
 	t_list2	*tmp;
 	t_list2	*tmp_list;
@@ -92,7 +96,7 @@ int	expand_args(t_list2 *list, char **envp, t_token *token)
 		while (tmp)
 		{
 			if (token->type != HERE_DOC_ARG)
-				tmp->data = (void *)expand_str((char *)tmp->data, envp);
+				tmp->data = (void *)expand_str((char *)tmp->data, main);
 			tmp = tmp->next;
 		}
 		free(list->data);

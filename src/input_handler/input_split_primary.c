@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 11:57:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:52:15 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static t_list2	*valid_input_list(t_list2 *list)
 	return (list);
 }
 
-t_list2	*get_true_input(const char *input, char **envp)
+t_list2	*get_true_input(const char *input, t_main *main)
 {
 	t_list2	*tmp;
 	t_list2	*primary;
@@ -113,7 +113,7 @@ t_list2	*get_true_input(const char *input, char **envp)
 		tmp_arg = input_split2(token);
 		if (!tmp_arg)
 			return (lst_destroy2(primary, free_token_node), NULL);
-		if (!expand_args(tmp_arg, envp, token))
+		if (!expand_args(tmp_arg, main, token))
 			return (lst_destroy2(primary, free_token_node), NULL);
 		free(token->value);
 		token->value = ft_strjoinlst(tmp_arg);
