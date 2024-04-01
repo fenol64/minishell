@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:39:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 10:31:31 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 11:51:05 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ const char	*is_operator(const char *str)
 		index++;
 	}
 	return (NULL);
+}
+
+void	free_token_node(void *arg)
+{
+	t_token	*token;
+
+	token = (t_token *)arg;
+	free_token(token, free);
 }
 
 static int	classify_arg(t_list2 *list)
