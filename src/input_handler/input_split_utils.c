@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:39:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:22:06 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:45:43 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	get_exit_str(unsigned char nbr, char *fstring)
 	size_t	rem;
 	size_t	index;
 
+	ft_memset(fstring, 0, EXSTR);
 	index = 0 + (nbr == 0);
 	rem = nbr;
 	while (rem)
