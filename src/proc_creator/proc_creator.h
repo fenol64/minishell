@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/28 15:06:31 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:35:37 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	free_proc_list(t_proc **procs, void (*del)(void *arg));
 
 // proc_from_list.c
 
-t_proc	**get_procs(t_list2 *input_list, char **envp);
+t_proc	**get_procs(t_list2 *list);
 
 // proc_creator_utils.c
 void	del_file_node(void *arg);

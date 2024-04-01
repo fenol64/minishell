@@ -6,54 +6,42 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:08:07 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/28 16:24:27 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:52:09 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
+static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list);
 static int		get_proc_redirections(t_proc *proc, t_list2 *input_list);
+static void		add_redi_file(t_list2 **redi_list, t_list2 *node, int mode);
 static size_t	cmd_count(t_list2 *input_list);
 
-t_proc	**get_procs(t_list2 *input_list, char **envp)
+t_proc	**get_procs(t_list2 *list)
 {
-	t_list2	*node;
-	t_token	*token;
+	int		index;
 	t_proc	**procs;
-	size_t	index;
 
-	procs = ft_calloc(sizeof(t_proc *), cmd_count(input_list) + 1);
+	index = cmd_count(list);
+	procs = ft_calloc(sizeof(t_proc *), index + 1);
 	if (!procs)
 		return (perror(__func__), NULL);
-	index = 0;
-	procs[index] = new_proc();
-	if (!procs[index])
-		return (free_proc_list(procs, free), NULL);
-	while (input_list)
+	while (index)
 	{
-		token = (t_token *)input_list->data;
-		if (token && token->type == ARG)
-		{
-			node = new_node2(ft_strdup(token->value), free);
-			lst_append2(&(procs[index]->argv), node);
-			if (!node || !node->data)
-				return (free_proc_list(procs, free), NULL);
-		}
-		else if (token && operator_type(token))
-		{
-			if (!get_proc_redirections(procs[index], input_list))
-				return (free_proc_list(procs, free), NULL);
-		}
-		else if (token && token->type == PIPE)
-		{
-			index++;
-			procs[index] = new_proc();
-			if (!procs[index])
-				return (free_proc_list(procs, free), NULL);
-		}
-		input_list = input_list->next;
+		index--;
+		procs[index] = new_proc();
+		if (!procs[index])
+			return (free_proc_list(procs, free), NULL);
 	}
-	(void)envp;
+	index = 0;
+	while (list)
+	{
+		if (!append_to_proc(procs[index], (t_token *)list->data, list))
+			return (free_proc_list(procs, free), NULL);
+		else if (((t_token *)list->data)->type == PIPE)
+			index++;
+		list = list->next;
+	}
 	return (procs);
 }
 
@@ -76,25 +64,13 @@ static int	get_proc_redirections(t_proc *proc, t_list2 *input_list)
 	if (!file->name)
 		return (free_file(file, del_file_node), false);
 	if (token->type == INPUT_ARG)
-	{
-		lst_append2(&proc->infiles, node);
-		file->mode = O_RDONLY;
-	}
+		add_redi_file(&proc->infiles, node, O_RDONLY);
 	else if (token->type == OUTPUT_ARG)
-	{
-		lst_append2(&proc->outfiles, node);
-		file->mode = O_CREAT | O_TRUNC | O_WRONLY;
-	}
+		add_redi_file(&proc->outfiles, node, O_CREAT | O_TRUNC | O_WRONLY);
 	else if (token->type == APPEND_ARG)
-	{
-		lst_append2(&proc->outfiles, node);
-		file->mode = O_CREAT | O_APPEND | O_WRONLY;
-	}
+		add_redi_file(&proc->outfiles, node, O_CREAT | O_APPEND | O_WRONLY);
 	else if (token->type == HERE_DOC_ARG)
-	{
-		get_here_doc(file);
-		lst_append2(&proc->infiles, node);
-	}
+		add_redi_file(&proc->infiles, node, -42);
 	return (true);
 }
 
@@ -104,6 +80,8 @@ static size_t	cmd_count(t_list2 *input_list)
 	size_t	count;
 
 	count = 1;
+	if (!input_list)
+		return (ft_perror(__func__, ARGNULL), 0);
 	while (input_list)
 	{
 		token = (t_token *)input_list->data;
@@ -112,4 +90,34 @@ static size_t	cmd_count(t_list2 *input_list)
 		input_list = input_list->next;
 	}
 	return (count);
+}
+
+static void		add_redi_file(t_list2 **redi_list, t_list2 *node, int mode)
+{
+	t_file	*file;
+
+	file = (t_file *)node->data;
+	file->mode = mode;
+	if (mode == -42)
+		get_here_doc(file);
+	lst_append2(redi_list, node);
+}
+
+static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list)
+{
+	t_list2	*node;
+
+	if (token && token->type == ARG)
+	{
+		node = new_node2(ft_strdup(token->value), free);
+		lst_append2(&procs->argv, node);
+		if (!node || !node->data)
+			return (false);
+	}
+	else if (token && operator_type(token))
+	{
+		if (!get_proc_redirections(procs, list))
+			return (false);
+	}
+	return (true);
 }
