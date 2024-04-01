@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/28 15:03:58 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:41:55 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	validate_input_list(t_list2 *input_list)
 static int	repeated_operator(t_token *t1, t_token *t2)
 {
 	if (operator_type(t1) && operator_type(t2))
-			return (true);
+		return (true);
 	return (false);
 }
 
