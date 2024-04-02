@@ -1,4 +1,4 @@
-SRCS =	proc_creator_struct.c proc_creator_utils.c proc_from_list.c proc_hdoc_expand.c main_test.c 
+SRCS =	proc_creator_struct.c proc_creator_utils.c proc_from_list.c proc_hdoc_expand.c proc_open_files.c main_test.c 
 
 OBJS = ${SRCS:.c=.o}
 

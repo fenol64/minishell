@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:03:00 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 11:02:31 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:03:33 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	free_proc_list(t_proc **procs, void (*del)(void *arg))
 		return ;
 	while (procs[index])
 	{
-		free_proc(procs[index]);
+		free_proc(procs[index], del);
 		index++;
 	}
 	free(procs);

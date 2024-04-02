@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 10:56:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:03:10 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ typedef struct s_proc
 //	proc_creator_structs.c
 
 t_proc	*new_proc(void);
-void	free_proc(t_proc *proc, void (*del_arg)(void *a)
-			, void (*del_file)(void *a));
+void	free_proc(t_proc *proc, void (*del_arg)(void *a));
 t_file	*new_file(void);
 void	free_file(t_file *file, void (*del)(void *arg));
 
