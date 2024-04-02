@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:57:01 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:56:12 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,10 @@ char	*get_here_doc(t_file *file, t_main *main);
 
 //	proc_hdoc_expand.c
 char 	*hdoc_expand(const char *str, t_main *main);
+
+//	proc_open_files.c
+int		close_proc_files(t_proc *proc);
+int		open_proc_outfiles(t_proc *proc);
+int		open_proc_infiles(t_proc *proc);
 
 #endif
