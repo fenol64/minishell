@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 11:03:10 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:52:58 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "../input_handler/input_handler.h"
 # include "../input_handler/stuff/libft.h"
 # include <fcntl.h>
+# include <sys/stat.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -59,5 +61,14 @@ char 	*hdoc_expand(const char *str, t_main *main);
 int		close_proc_files(t_proc *proc);
 int		open_proc_outfiles(t_proc *proc);
 int		open_proc_infiles(t_proc *proc);
+
+// proc_filepaths.c
+int		is_builtin(char *cmd);
+int		valid_path(const char *path, int mode);
+int		valid_folder(const char *path, int mode);
+int		valid_filepath(const char *path, int mode);
+
+// proc_get_path.c
+char	*get_path(t_proc *proc, t_main *main);
 
 #endif
