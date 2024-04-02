@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:14:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 11:16:39 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:34:45 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	close_proc_files(t_proc *proc)
 	tmp2 = proc->outfiles;
 	while (tmp2)
 	{
-		file = (t_file *)tmp->data;
+		file = (t_file *)tmp2->data;
 		if (file->fd != -1)
 			close(file->fd);
 		tmp2 = tmp2->next;
@@ -55,7 +55,10 @@ int	open_proc_outfiles(t_proc *proc)
 	while (tmp)
 	{
 		file = (t_file *)tmp->data;
-		file->fd = open(file->name, file->mode);
+		if (valid_filepath(file->name, file->mode))
+			file->fd = open(file->name, file->mode);
+		else
+			file->fd = open(file->name, file->mode, 0644);
 		if (file->fd == -1)
 			return (perror("minishell: "), outfile_exit(proc));
 		tmp = tmp->next;
@@ -76,7 +79,7 @@ int	open_proc_infiles(t_proc *proc)
 		file = (t_file *)tmp->data;
 		if (file->mode != -42)
 			file->fd = open(file->name, file->mode);
-		if (file->fd == -1)
+		if (file->fd == -1 && file->mode != -42)
 			return (perror("minishell"), infile_exit(proc));
 		tmp = tmp->next;
 	}
@@ -124,6 +127,8 @@ static int	infile_exit(t_proc *proc)
 		tmp = tmp->prev;
 	}
 	lst_destroy2(tmp2, del_file_node);
+	lst_destroy2(proc->outfiles, del_file_node);
+	proc->outfiles = NULL;
 	file = new_file();
 	proc->infiles = new_node2(file, del_file_node);
 	if (!proc->infiles || !file)
@@ -132,5 +137,5 @@ static int	infile_exit(t_proc *proc)
 	file->name = ft_strdup("/dev/null");
 	if (!file->fd || !file->name)
 		exit(EXIT_FAILURE);
-	return (true);
+	return (false);
 }
