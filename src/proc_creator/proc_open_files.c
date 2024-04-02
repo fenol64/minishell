@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:14:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 10:56:08 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:00:01 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ int	close_proc_files(t_proc *proc)
 	while (tmp)
 	{
 		file = (t_file *)tmp->data;
-		if (file->mode != -42)
+		if (file->mode != -42 && file->fd != -1)
 			close(file->fd);
 		tmp = tmp->next;
 	}
 	while (tmp2)
 	{
 		file = (t_file *)tmp->data;
-		close(file->fd);
+		if (file->fd != -1)
+			close(file->fd);
 		tmp2 = tmp2->next;
 	}
 	lst_destroy2(proc->infiles, del_file_node);
@@ -91,7 +92,7 @@ static int	infile_exit(t_list2 **infiles)
 	while (tmp)
 	{
 		file = tmp->data;
-		if (file->mode != -42)
+		if (file->mode != -42 && file->fd != -1)
 			close(file->fd);
 		tmp = tmp->prev;
 	}

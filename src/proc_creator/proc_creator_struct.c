@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:03:00 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 09:54:43 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:02:31 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ void	free_file(t_file *file, void (*del)(void *arg))
 	free(file);
 }
 
-void	free_proc(t_proc *proc, void (*del_arg)(void *a)
-			, void (*del_file)(void *a))
+void	free_proc(t_proc *proc, void (*del_arg)(void *a))
 {
 	if (!proc)
 		return ;
+	close_proc_files(proc);
 	lst_destroy2(proc->argv, del_arg);
-	lst_destroy2(proc->infiles, del_file);
-	lst_destroy2(proc->outfiles, del_file);
 	free(proc);
 }
 
@@ -70,7 +68,7 @@ void	free_proc_list(t_proc **procs, void (*del)(void *arg))
 		return ;
 	while (procs[index])
 	{
-		free_proc(procs[index], del, del_file_node);
+		free_proc(procs[index]);
 		index++;
 	}
 	free(procs);
