@@ -6,16 +6,16 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:15:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 10:54:50 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:18:38 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
 
 static int	repeated_operator(t_token *t1, t_token *t2);
-static void	ft_unxerror(const char *token);
+static void	ft_unxerror(const char *token, t_main *main);
 
-int	validate_input_list(t_list2 *input_list)
+int	validate_input_list(t_list2 *input_list, t_main *main)
 {
 	t_token	*token2;
 	t_token	*token;
@@ -33,11 +33,11 @@ int	validate_input_list(t_list2 *input_list)
 		if (!token)
 			return (false);
 		else if (tmp == input_list && token->type == PIPE)
-			return (ft_unxerror("|"), false);
+			return (ft_unxerror("|", main), false);
 		else if (token2 && repeated_operator(token, token2))
 			return (ft_unxerror(token2->value), false);
 		else if ((operator_type(token) || token->type == PIPE) && !tmp->next)
-			return (ft_unxerror("newline"), false);
+			return (ft_unxerror("newline", main), false);
 		token2 = NULL;
 		tmp = tmp->next;
 	}
@@ -51,7 +51,7 @@ static int	repeated_operator(t_token *t1, t_token *t2)
 	return (false);
 }
 
-static void	ft_unxerror(const char *token)
+static void	ft_unxerror(const char *token, t_main *main)
 {
 	size_t		size;
 	char		*new;
@@ -65,6 +65,7 @@ static void	ft_unxerror(const char *token)
 		return ;
 	}
 	size = ft_strlen(new);
+	get_exit_str(1, main->exit_status);
 	write(STDERR_FILENO, new, size);
 	free(new);
 }

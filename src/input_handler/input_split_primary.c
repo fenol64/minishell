@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 14:52:15 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:16:50 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,5 @@ t_list2	*get_true_input(const char *input, t_main *main)
 			return (lst_destroy2(primary, free_token_node), NULL);
 		tmp = tmp->next;
 	}
-	return (valid_input_list(primary));
+	return (valid_input_list(primary, main));
 }
