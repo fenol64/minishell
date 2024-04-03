@@ -1,12 +1,16 @@
 SRCS =	proc_creator_struct.c proc_creator_utils.c proc_from_list.c proc_hdoc_expand.c proc_open_files.c \
-		proc_filepaths.c proc_get_path.c main_test.c 
+		proc_filepaths.c proc_get_path.c
 
 OBJS = ${SRCS:.c=.o}
 
-all:	exe
+all:	proc.a
 
-exe:	$(OBJS)
-	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) exe.a libft_debug.a liblist_debug.a -lreadline
+#exe:	$(OBJS)
+#	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) exe.a libft_debug.a liblist_debug.a -lreadline
+
+proc.a:	$(OBJS)
+	ar -rc proc.a $(OBJS);
+	ranlib proc.a
 
 %.o:	%.c
 	cc -Wall -Wextra -ggdb3 -c $< -o $@
@@ -17,6 +21,6 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f exe 
+	rm -f  
 
 .PHONY: clean fclean all

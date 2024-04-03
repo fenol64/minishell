@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/03 10:04:42 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:05:18 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PROC_CREATOR_H
 
 # include "../input_handler/input_handler.h"
-# include "../input_handler/stuff/libft.h"
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <errno.h>
