@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:21:49 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:21:02 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_main		*new_main(char **envp);
 t_token		*new_token(char *value, int type, void (*del)(void *));
 
 //	input_list_validation.c
-int			validate_input_list(t_list2 *input_list);
+int			validate_input_list(t_list2 *input_list, t_main *main);
 int			operator_type(t_token *token);
 
 //	input_list_join.c
