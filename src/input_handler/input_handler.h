@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/03 10:21:02 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:31:24 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int			operator_type(t_token *token);
 char		**matrix_from_lst(t_list2	*list);
 char		*ft_strjoin_token_lst(t_list2 *list);
 char		*ft_strjoinlst(t_list2 *list);
+char		*ft_strjoinlstsep(t_list2 *list, const char *sep);
 
 
 #endif
