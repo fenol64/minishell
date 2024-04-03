@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:35:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:43:26 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:10:28 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	free_main(t_main *main)
 		close(main->std_out);
 	if (main->std_in != -1)
 		close(main->std_in);
+	ft_free_matrix(main->envp);
 	free(main);
 }
 
