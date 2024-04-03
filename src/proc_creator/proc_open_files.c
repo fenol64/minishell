@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:14:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 15:34:45 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:08:42 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	open_proc_infiles(t_proc *proc)
 static int	outfile_exit(t_proc *proc)
 {
 	t_file	*file;
-	t_list2 *tmp;
+	t_list2	*tmp;
 
 	tmp = (proc->outfiles);
 	while (tmp)
@@ -114,7 +114,7 @@ static int	outfile_exit(t_proc *proc)
 static int	infile_exit(t_proc *proc)
 {
 	t_file	*file;
-	t_list2 *tmp;
+	t_list2	*tmp;
 	t_list2	*tmp2;
 
 	tmp = (proc->infiles)->prev;

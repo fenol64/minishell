@@ -6,15 +6,21 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:08:07 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:55:06 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:08:06 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
-static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list, t_main *main);
-static int		get_proc_redirections(t_proc *proc, t_list2 *input_list, t_main *main);
-static void		add_file(t_list2 **redi_list, t_list2 *node, int mode, t_main *main);
+static int		append_to_proc(t_proc *procs, t_token *token,
+					t_list2 *list, t_main *main);
+
+static int		get_proc_redirections(t_proc *proc,
+					t_list2 *input_list, t_main *main);
+
+static void		add_file(t_list2 **redi_list, t_list2 *node,
+					int mode, t_main *main);
+
 static size_t	cmd_count(t_list2 *input_list);
 
 t_proc	**get_procs(t_list2 *list, t_main *main)
@@ -45,7 +51,8 @@ t_proc	**get_procs(t_list2 *list, t_main *main)
 	return (procs);
 }
 
-static int	get_proc_redirections(t_proc *proc, t_list2 *input_list, t_main *main)
+static int	get_proc_redirections(t_proc *proc,
+				t_list2 *input_list, t_main *main)
 {
 	t_file	*file;
 	t_list2	*node;
@@ -60,7 +67,7 @@ static int	get_proc_redirections(t_proc *proc, t_list2 *input_list, t_main *main
 	node = new_node2(file, free);
 	if (!node)
 		return (free_file(file, del_file_node), false);
-	file->name =  ft_strdup(((t_token *)input_list->data)->value);
+	file->name = ft_strdup(((t_token *)input_list->data)->value);
 	if (!file->name)
 		return (free_file(file, del_file_node), false);
 	if (token->type == INPUT_ARG)
@@ -92,7 +99,8 @@ static size_t	cmd_count(t_list2 *input_list)
 	return (count);
 }
 
-static void		add_file(t_list2 **redi_list, t_list2 *node, int mode, t_main *main)
+static void	add_file(t_list2 **redi_list, t_list2 *node,
+					int mode, t_main *main)
 {
 	t_file	*file;
 
@@ -103,7 +111,8 @@ static void		add_file(t_list2 **redi_list, t_list2 *node, int mode, t_main *main
 	lst_append2(redi_list, node);
 }
 
-static int		append_to_proc(t_proc *procs, t_token *token, t_list2 *list, t_main *main)
+static int	append_to_proc(t_proc *procs, t_token *token,
+					t_list2 *list, t_main *main)
 {
 	t_list2	*node;
 

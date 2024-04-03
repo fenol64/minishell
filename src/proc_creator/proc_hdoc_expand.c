@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:54:10 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:51:28 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:08:25 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*expand_str(char *str, t_main *main)
 	return (free(tmp), ft_strdup(new));
 }
 
-char *hdoc_expand(const char *str, t_main *main)
+char	*hdoc_expand(const char *str, t_main *main)
 {
 	char	*data;
 	t_list2	*tmp2;

@@ -6,15 +6,15 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:03:58 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:53:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:05:17 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_creator.h"
 
-static t_list2	*expand_line(t_list2 *node, t_main *main);
-static char		*quit_hdoc(t_list2 *tmp, char **name);
 static int		has_quote(const char *str);
+static char		*quit_hdoc(t_list2 *tmp, char **name);
+static t_list2	*expand_line(t_list2 *node, t_main *main);
 
 void	del_file_node(void *arg)
 {
@@ -77,9 +77,11 @@ static int	has_quote(const char *str)
 	}
 	return (false);
 }
+
 static t_list2	*expand_line(t_list2 *node, t_main *main)
 {
 	void	*old;
+
 	if (!node)
 		return (NULL);
 	old = node->data;
