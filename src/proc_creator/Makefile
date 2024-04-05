@@ -12,6 +12,9 @@ proc.a:	$(OBJS)
 	ar -rc proc.a $(OBJS);
 	ranlib proc.a
 
+exe:	proc.a
+	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) main_test.c exe.a proc.a libft_debug.a liblist_debug.a -lreadline
+
 %.o:	%.c
 	cc -Wall -Wextra -ggdb3 -c $< -o $@
 
@@ -21,6 +24,6 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f  
+	rm -f  proc.a
 
 .PHONY: clean fclean all

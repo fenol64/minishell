@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:14:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/03 10:08:42 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:24:48 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	close_proc_files(t_proc *proc)
 	while (tmp2)
 	{
 		file = (t_file *)tmp2->data;
-		if (file->fd != -1)
+		if (file->mode != -42 && file->fd != -1)
 			close(file->fd);
 		tmp2 = tmp2->next;
 	}
