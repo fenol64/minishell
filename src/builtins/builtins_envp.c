@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 12:27:33 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/03 14:01:19 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:45:33 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_list2	*lst_from_envp(char **envp)
 
 	tmp = NULL;
 	index = 0;
+	if (!envp)
+		return (NULL);
 	while (envp[index])
 	{
 		node = new_node2(ft_strdup(envp[index]), free);

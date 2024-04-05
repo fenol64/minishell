@@ -5,7 +5,7 @@ OBJS = ${SRCS:.c=.o}
 all:	exe
 
 exe:	$(OBJS)
-	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) exe.a  proc.a liblist_debug.a libft_debug.a -lreadline
+	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) exe.a proc.a liblist_debug.a libft_debug.a -lreadline
 
 %.o:	%.c
 	cc -Wall -Wextra -ggdb3 -c $< -o $@
@@ -16,6 +16,6 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f exe 
+	rm -f exe
 
 .PHONY: clean fclean all
