@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:39:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/01 15:45:43 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:26:21 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,16 @@ void	get_exit_str(unsigned char nbr, char *fstring)
 		rem /= 10;
 	}
 	fstring[index] = '\0';
+	if (index > 0)
+		--index;
 	while (1)
 	{
-		index--;
 		rem = nbr % 10;
 		fstring[index] = rem + '0';
-		if (nbr == 0)
+		if (nbr == 0 || index == 0)
 			break ;
 		nbr /= 10;
+		index--;
 	}
 }
 

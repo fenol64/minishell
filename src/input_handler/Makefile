@@ -21,6 +21,6 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f exe input.a
+	rm -f exe exe.a
 
 .PHONY: clean fclean all
