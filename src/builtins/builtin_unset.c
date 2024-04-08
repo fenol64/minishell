@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_envp_utils.c                              :+:      :+:    :+:   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 14:16:09 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/03 14:18:09 by paulhenr         ###   ########.fr       */
+/*   Created: 2024/04/08 15:59:12 by paulhenr          #+#    #+#             */
+/*   Updated: 2024/04/08 16:05:38 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	**cpy_envp(char **envp)
+int	ft_unset(t_proc *proc, t_main *main)
 {
-	char	**cpy;
-	size_t	size;
-
-	if (!envp)
-		return (ft_perror(__func__, ARGNULL), NULL);
-	size = 0;
-	while (envp[size])
-		size++;
-	cpy = malloc(sizeof(char *) * (size + 1));
-	if (!cpy)
-		return (perror(__func__), NULL);
-	size = 0;
-	while (envp[size])
-	{
-		cpy[size] = ft_strdup(envp[size]);
-		size++;
-	}
-	cpy[size] = NULL;
-	return (cpy);
+	if (!proc->argv)
+		return (0);
+	get_exit_str(EXIT_FAILURE, main->exit_status);
+	if (has_invalid_opt(proc->argv))
+		return (ft_perror("unset", "invalid option"), 1);
+	main->envp = update_envp(main->envp, (char *)proc->argv->next->data, NULL);
+	if (!main->envp)
+		return (1);
+	get_exit_str(EXIT_SUCCESS, main->exit_status);
+	return (0);
 }

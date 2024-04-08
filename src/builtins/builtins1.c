@@ -6,19 +6,11 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/05 13:25:01 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:54:09 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-void	ts_putstr(const char *str)
-{
-	size_t	size;
-
-	size = ft_strlen(str);
-	write(STDOUT_FILENO, str, size * sizeof(char));
-}
 
 int	ft_echo(t_proc *proc, t_main *main)
 {
@@ -42,7 +34,8 @@ int	ft_echo(t_proc *proc, t_main *main)
 	get_exit_str(1, main->exit_status);
 	if (!str || !tmp)
 		return (free(str), free(tmp), 1);
-	ts_putstr(str);
+	if (ts_putstr(str) == -1)
+		return (free(str), free(tmp), 1);
 	get_exit_str(0, main->exit_status);
 	return (free(str), free(tmp), 0);
 }
@@ -53,19 +46,79 @@ int	ft_cd(t_proc *proc, t_main *main)
 	static char	oldpath[PATH_MAX];
 
 	get_exit_str(1, main->exit_status);
-	if (!proc || lst_len2(proc->argv) < 2)
-		return (ft_perror("", "Too few arguments\n"));
+	if (!proc || !proc->argv)
+		return (ft_perror("", ARGINV), 1);
 	getcwd(oldpath, PATH_MAX);
-	target_dir = (char *)proc->argv->next->data;
+	target_dir = "";
+	if (proc->argv->next)
+		target_dir = (char *)proc->argv->next->data;
 	if (chdir(target_dir) == -1)
+	{
 		perror(target_dir);
+		return (1);
+	}
 	else
 	{
-		update_envp(main->envp, "OLDPWD", oldpath);
+		main->envp = update_envp(main->envp, "OLDPWD", oldpath);
 		getcwd(oldpath, PATH_MAX);
-		update_envp(main->envp, "PWD", oldpath);
+		main->envp = update_envp(main->envp, "PWD", oldpath);
 		get_exit_str(0, main->exit_status);
 	}
 	*oldpath = '\0';
+	return (0);
+}
+
+int	ft_pwd(t_proc *proc, t_main *main)
+{
+	char		*option;
+	static char	cwd[PATH_MAX];
+
+	get_exit_str(1, main->exit_status);
+	if (!proc || !proc->argv)
+		return (ft_perror(__func__, ARGINV), 1);
+	if (proc->argv && proc->argv->next)
+		option = (char *)proc->argv->next->data;
+	if (option[0] == '-' && option[1])
+	{
+		ft_perror(option, "invalid option");
+		return (1);
+	}
+	getcwd(cwd, PATH_MAX * sizeof(char));
+	if (ts_putstr(cwd) == -1)
+		return (1);
+	get_exit_str(0, main->exit_status);
+	return (0);
+}
+
+int	ft_exit(t_proc *proc, t_main *main)
+{
+	get_exit_str(1, main->exit_status);
+	if (!proc || !main || !proc->argv)
+		return (ft_perror(__func__, ARGINV), 1);
+	else if (lst_len2(proc->argv) > 1)
+		ft_perror("exit\nminishel: exit", "too many arguments");
+	else
+		get_exit_str(0, main->exit_status);
+	exit(ft_atoi(main->exit_status));
+	return (1);
+}
+
+int	ft_env(t_proc *proc, t_main *main)
+{
+	size_t	index;
+
+	get_exit_str(1, main->exit_status);
+	if (!proc || !main || !proc->argv || !main->envp)
+		return (ft_perror(__func__, ARGINV), 1);
+	else if (lst_len2(proc->argv) > 1)
+		ft_perror("minishel: env", "too many arguments");
+	index = 0;
+	while (main->envp[index])
+	{
+		if (ts_putstr(main->envp[index]) == -1)
+			return (1);
+		index++;
+	}
+	get_exit_str(0, main->exit_status);
 	return (0);
 }

@@ -1,4 +1,4 @@
-SRCS =	builtins1.c builtins_envp.c builtins_envp_utils.c main_test.c 
+SRCS =	builtins1.c builtins_envp.c builtins_utils.c main_test.c 
 
 OBJS = ${SRCS:.c=.o}
 
