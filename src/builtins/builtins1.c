@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 10:41:24 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:51:57 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,26 @@ int	ft_exit(t_proc *proc, t_main *main)
 
 int	ft_env(t_proc *proc, t_main *main)
 {
+	char	*joined;
 	size_t	index;
 
 	get_exit_str(1, main->exit_status);
 	if (!proc || !main || !proc->argv || !main->envp)
 		return (ft_perror(__func__, ARGINV), EXIT_FAILURE);
 	else if (lst_len2(proc->argv) > 1)
+	{
 		ft_perror("minishel: env", "too many arguments");
+		return (EXIT_FAILURE);
+	}
 	index = 0;
 	while (main->envp[index])
 	{
-		if (ts_putstr(main->envp[index]) == -1)
+		joined = ft_strjoin(main->envp[index], "\n");
+		if (!joined)
+			return (perror(__func__), EXIT_FAILURE);
+		if (ts_putstr(joined) == -1)
 			return (EXIT_FAILURE);
+		free(joined);
 		index++;
 	}
 	get_exit_str(0, main->exit_status);
