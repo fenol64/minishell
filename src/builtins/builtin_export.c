@@ -6,12 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:30:15 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 10:20:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:23:34 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
+static int	print_exp_envp(char **envp);
 static int	validate_assign(char **opts);
 static char	**get_new_envp(char **envp, const char *entry);
 
@@ -46,12 +47,19 @@ int	validate_export(t_list2	*argv)
 
 int	ft_export(t_proc *proc, t_main *main)
 {
+	int		status;
 	char	*entry;
 	t_list2	*tmp;
 
 	get_exit_str(EXIT_FAILURE, main->exit_status);
 	if (!validate_export(proc->argv))
 		return (EXIT_FAILURE);
+	if (!proc->argv->next)
+	{
+		status = print_exp_envp(main->envp);
+		get_exit_str(status, main->exit_status);
+		return (status);
+	}
 	tmp = proc->argv->next;
 	while (tmp)
 	{
@@ -111,4 +119,22 @@ static int	validate_assign(char **opts)
 		index++;
 	}
 	return (true);
+}
+
+static int	print_exp_envp(char **envp)
+{
+	char	*tmp;
+	size_t	index;
+
+	index = 0;
+	while (envp[index])
+	{
+		tmp = ft_strsepjoin("declare -x ", envp[index], "\n");
+		if (!tmp)
+			return (EXIT_FAILURE);
+		ts_putstr(tmp);
+		free(tmp);
+		index++;
+	}
+	return (EXIT_SUCCESS);
 }

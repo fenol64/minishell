@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 12:27:33 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/05 10:45:33 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:22:43 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**update_envp(char **envp, char *name, char *new_value)
 	t_list2	*envlist;
 
 	if (!envp || !name || (!name && !new_value))
-		return (NULL);
+		return (ft_free_matrix(envp), NULL);
 	envlist = lst_from_envp(envp);
 	ft_free_matrix(envp);
 	if (!envlist)

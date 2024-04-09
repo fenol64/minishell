@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:10:22 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/08 14:54:56 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:53:34 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ char	**cpy_envp(char **envp);
 
 // builtin_export.c
 int		validate_export(t_list2	*argv);
+
+// builtin_unset.c
+int		ft_unset(t_proc *proc, t_main *main);
 
 #endif
