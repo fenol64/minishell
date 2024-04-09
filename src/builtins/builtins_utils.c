@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/08 16:02:17 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:57:27 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ts_putstr(const char *str)
 	size_t	size;
 
 	size = ft_strlen(str);
-		return (-1);
 	status = write(STDOUT_FILENO, str, size * sizeof(char));
 	if (status == -1)
 		perror(__func__);
