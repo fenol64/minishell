@@ -11,7 +11,7 @@ PROC_SRCS	:=	proc_creator_struct.c proc_creator_utils.c proc_filepaths.c proc_fr
 						proc_get_path.c proc_hdoc_expand.c proc_open_files.c
 
 BUILTINS_DIR	:=	builtins/
-BUILTINS_SRCS	:=	builtins_envp.c builtins_utils.c builtins1.c builtins2.c
+BUILTINS_SRCS	:=	builtins_envp.c builtins_utils.c builtins1.c builtin_export.c builtin_unset.c
 
 SRCS	:=	${addprefix $(INP_DIR), $(INP_SRCS)}
 SRCS	+=	${addprefix $(PROC_DIR), $(PROC_SRCS)}
