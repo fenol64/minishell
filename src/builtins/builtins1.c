@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 09:40:11 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:48:46 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	ft_pwd(t_proc *proc, t_main *main)
 	static char	cwd[PATH_MAX];
 
 	get_exit_str(1, main->exit_status);
+	option = "";
 	if (!proc || !proc->argv)
 		return (ft_perror(__func__, ARGINV), 1);
 	if (proc->argv && proc->argv->next)
