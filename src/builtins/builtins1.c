@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 10:19:54 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:23:03 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	ft_cd(t_proc *proc, t_main *main)
 		target_dir = "";
 	if (proc->argv->next)
 		target_dir = (char *)proc->argv->next->data;
+	if (!*target_dir)
+		return (get_exit_str(0, main->exit_status), EXIT_SUCCESS);
 	if (chdir(target_dir) == -1)
 		return (perror(target_dir), EXIT_FAILURE);
 	else
