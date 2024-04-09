@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 09:48:46 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:03:41 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	ft_echo(t_proc *proc, t_main *main)
 
 	end = "\n";
 	args = proc->argv->next;
-	if (!proc->argv->next)
-		return (write(STDOUT_FILENO, end, sizeof(char)), 0);
-	if (lst_len2(proc->argv) > 2 && !ft_strcmp((char *)args->data, "-n"))
+	if (args && !ft_strcmp((char *)args->data, "-n"))
 	{
 		args = args->next;
 		end = "";
 	}
+	if (!proc->argv->next || !args)
+		return (write(STDOUT_FILENO, end, sizeof(char)), 0);
 	str = ft_strjoinlstsep(args, " ");
 	tmp = str;
 	str = ft_strjoin(str, end);
