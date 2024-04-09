@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:30:15 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 14:23:34 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:36:10 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static char	**get_new_envp(char **envp, const char *entry)
 	new_envp = update_envp(envp, name, value);
 	if (!new_envp)
 		return (perror(__func__), free(name), free(value), NULL);
-	return (new_envp);
+	return (free(name), free(value), new_envp);
 }
 
 static int	validate_assign(char **opts)
