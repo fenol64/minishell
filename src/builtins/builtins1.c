@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 10:30:23 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:37:17 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	ft_cd(t_proc *proc, t_main *main)
 
 int	ft_pwd(t_proc *proc, t_main *main)
 {
+	char		*joined;
 	char		*option;
 	static char	cwd[PATH_MAX];
 
@@ -85,10 +86,13 @@ int	ft_pwd(t_proc *proc, t_main *main)
 		return (EXIT_FAILURE);
 	}
 	getcwd(cwd, PATH_MAX * sizeof(char));
-	if (ts_putstr(cwd) == -1)
-		return (EXIT_FAILURE);
+	joined = ft_strjoin(cwd, "\n");
+	if (!joined)
+		return (perror(__func__), EXIT_FAILURE);
+	if (ts_putstr(joined) == -1)
+		return (free(joined), EXIT_FAILURE);
 	get_exit_str(0, main->exit_status);
-	return (EXIT_SUCCESS);
+	return (free(joined), EXIT_SUCCESS);
 }
 
 int	ft_exit(t_proc *proc, t_main *main)
