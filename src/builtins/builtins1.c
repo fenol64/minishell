@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 10:23:03 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:30:23 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_cd(t_proc *proc, t_main *main)
 	get_exit_str(1, main->exit_status);
 	if (!proc || !proc->argv)
 		return (ft_perror("", ARGINV), EXIT_FAILURE);
+	if (lst_len2(proc->argv) > 2)
+		return (ft_perror("minishell: cd", "too many arguments"), 1);
 	getcwd(oldpath, PATH_MAX);
 	target_dir = ft_getenv("HOME", main);
 	if (!target_dir)
@@ -58,13 +60,10 @@ int	ft_cd(t_proc *proc, t_main *main)
 		return (get_exit_str(0, main->exit_status), EXIT_SUCCESS);
 	if (chdir(target_dir) == -1)
 		return (perror(target_dir), EXIT_FAILURE);
-	else
-	{
-		main->envp = update_envp(main->envp, "OLDPWD", oldpath);
-		getcwd(oldpath, PATH_MAX);
-		main->envp = update_envp(main->envp, "PWD", oldpath);
-		get_exit_str(0, main->exit_status);
-	}
+	main->envp = update_envp(main->envp, "OLDPWD", oldpath);
+	getcwd(oldpath, PATH_MAX);
+	main->envp = update_envp(main->envp, "PWD", oldpath);
+	get_exit_str(0, main->exit_status);
 	*oldpath = '\0';
 	return (EXIT_SUCCESS);
 }
