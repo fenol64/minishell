@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:30:15 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/08 16:02:31 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:43:01 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	validate_export(t_list2	*argv)
 
 	if (has_invalid_opt(argv))
 		return (false);
-	if (!ft_strchr(arg, '='))
-		return (false);
 	if (!argv->next)
 		return (true);
+	if (!ft_strchr((char *)argv->next->data, '='))
+		return (false);
 	tmp = argv->next;
 	while (tmp)
 	{
@@ -77,17 +77,17 @@ static char	**get_new_envp(char **envp, const char *entry)
 	{
 		ft_perror("Fatal Error", "Invalid Environment");
 		ft_free_matrix(envp);
-		return (NULL)
+		return (NULL);
 	}
 	name = ft_strpdup(entry, anchor);
 	if (!name)
 		return (false);
 	value = ft_strdup(anchor + 1);
 	if (!value)
-		return (perror(__func__), free(name), false);
+		return (perror(__func__), free(name), NULL);
 	new_envp = update_envp(envp, name, value);
 	if (!new_envp)
-		return (perror(__func__), free(name), free(value), false);
+		return (perror(__func__), free(name), free(value), NULL);
 	return (new_envp);
 }
 
