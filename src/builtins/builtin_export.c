@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:30:15 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 09:43:01 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:20:12 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ int	ft_export(t_proc *proc, t_main *main)
 
 	get_exit_str(EXIT_FAILURE, main->exit_status);
 	if (!validate_export(proc->argv))
-		return (1);
+		return (EXIT_FAILURE);
 	tmp = proc->argv->next;
 	while (tmp)
 	{
 		entry = (char *)tmp->data;
 		main->envp = get_new_envp(main->envp, entry);
 		if (!main->envp)
-			return (1);
+			return (EXIT_FAILURE);
 		tmp = tmp->next;
 	}
 	get_exit_str(EXIT_SUCCESS, main->exit_status);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 static char	**get_new_envp(char **envp, const char *entry)
