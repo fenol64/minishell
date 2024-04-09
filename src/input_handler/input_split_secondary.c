@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:37:05 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/27 10:31:16 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:50:02 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ t_list2	*input_exp_split(const char *str)
 static const char	*delimet(int extra)
 {
 	if (extra)
-		return (" \n\t\f\r\v$'\"");
+		return (" \n\t\f\r\v$'\"=");
 	return (" \n\t\f\r\v$");
 }
