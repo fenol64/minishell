@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 10:37:17 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:41:24 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	ft_cd(t_proc *proc, t_main *main)
 
 int	ft_pwd(t_proc *proc, t_main *main)
 {
+	char		opt[4];
 	char		*joined;
 	char		*option;
 	static char	cwd[PATH_MAX];
@@ -82,7 +83,8 @@ int	ft_pwd(t_proc *proc, t_main *main)
 		option = (char *)proc->argv->next->data;
 	if (option[0] == '-' && option[1])
 	{
-		ft_perror(option, "invalid option");
+		ft_strlcpy(opt, option, 3);
+		ft_perror(opt, "invalid option");
 		return (EXIT_FAILURE);
 	}
 	getcwd(cwd, PATH_MAX * sizeof(char));
