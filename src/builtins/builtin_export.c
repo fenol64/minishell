@@ -6,42 +6,41 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:30:15 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 14:36:10 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:10:33 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
 static int	print_exp_envp(char **envp);
-static int	validate_assign(char **opts);
+static int	validate_assign(char *name);
 static char	**get_new_envp(char **envp, const char *entry);
 
-int	validate_export(t_list2	*argv)
+int	validate_export(t_list2	*node)
 {
-	char	**opts;
-	t_list2	*tmp;
+	char	*str;
+	char	*name;
+	char	*value;
+	char	*anchor;
 
-	if (has_invalid_opt(argv))
+	if (!node || !node->data)
+		return (ft_perror(__func__, ARGNULL), false);
+	str = (char *)node->data;
+	if (*str == '=')
+		return (ft_perror(str, "not a valid identifier"), false);
+	else if (!*str)
+		return (ft_perror("''", "not a valid identifier"), false);
+	anchor = ft_strchr(str, '=');
+	if (!anchor)
 		return (false);
-	if (!argv->next)
-		return (true);
-	if (!ft_strchr((char *)argv->next->data, '='))
-		return (false);
-	tmp = argv->next;
-	while (tmp)
-	{
-		if (*(char *)tmp->data == '=')
-			return (false);
-		opts = ft_split((char *)tmp->data, '=');
-		if (!opts)
-			return (perror(__func__), false);
-		else if (!*opts)
-			return (ft_free_matrix(opts), false);
-		if (!validate_assign(opts))
-			return (ft_free_matrix(opts), false);
-		ft_free_matrix(opts);
-		tmp = tmp->next;
-	}
+	name = ft_strpdup(str, anchor);
+	value = ft_strdup(anchor + 1);
+	if (!name || !value)
+		return (perror(__func__), free(name), free(value), false);
+	if (!validate_assign(name))
+		return (free(name), free(value), false);
+	free(name);
+	free(value);
 	return (true);
 }
 
@@ -52,8 +51,8 @@ int	ft_export(t_proc *proc, t_main *main)
 	t_list2	*tmp;
 
 	get_exit_str(EXIT_FAILURE, main->exit_status);
-	if (!validate_export(proc->argv))
-		return (EXIT_FAILURE);
+	if (has_invalid_opt(proc->argv))
+		return (ft_perror("export", "no support for options"), false);
 	if (!proc->argv->next)
 	{
 		status = print_exp_envp(main->envp);
@@ -64,7 +63,8 @@ int	ft_export(t_proc *proc, t_main *main)
 	while (tmp)
 	{
 		entry = (char *)tmp->data;
-		main->envp = get_new_envp(main->envp, entry);
+		if (validate_export(tmp))
+			main->envp = get_new_envp(main->envp, entry);
 		if (!main->envp)
 			return (EXIT_FAILURE);
 		tmp = tmp->next;
@@ -99,15 +99,11 @@ static char	**get_new_envp(char **envp, const char *entry)
 	return (free(name), free(value), new_envp);
 }
 
-static int	validate_assign(char **opts)
+static int	validate_assign(char *name)
 {
 	size_t	index;
-	char	*name;
 
-	name = *opts;
-	if (ft_matrix_len(opts) < 2)
-		return (false);
-	if (ft_isdigit(*name))
+	if (ft_isdigit(*name) || !*name)
 		return (ft_perror(name, "not a valid identifier"), false);
 	index = 0;
 	if (*name == '_')
