@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:39:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/05 15:26:21 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:59:17 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,6 @@ const char	*is_operator(const char *str)
 		index++;
 	}
 	return (NULL);
-}
-
-void	get_exit_str(unsigned char nbr, char *fstring)
-{
-	size_t	rem;
-	size_t	index;
-
-	ft_memset(fstring, 0, EXSTR);
-	index = 0 + (nbr == 0);
-	rem = nbr;
-	while (rem)
-	{
-		index++;
-		rem /= 10;
-	}
-	fstring[index] = '\0';
-	if (index > 0)
-		--index;
-	while (1)
-	{
-		rem = nbr % 10;
-		fstring[index] = rem + '0';
-		if (nbr == 0 || index == 0)
-			break ;
-		nbr /= 10;
-		index--;
-	}
 }
 
 static int	classify_arg(t_list2 *list)

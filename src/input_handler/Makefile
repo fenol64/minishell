@@ -1,4 +1,5 @@
-deps	=	-l../libraries-dev/libft_debug.a -l../libraries-dev/liblist_debug.a
+#deps	=	-l../libraries-dev/libft_debug.a -l../libraries-dev/liblist_debug.a
+deps	=	-L../libraries-dev
 name	=	../libraries-dev/input_handler.a
 
 SRCS =	input_split_primary.c input_split_utils.c input_split_secondary.c \
@@ -13,7 +14,7 @@ $(name):	$(OBJS)
 		ranlib $(name)
 
 exe:	$(OBJS)
-	cc -I../mini_typedefs -Wall -Wextra -ggdb3 -o exe $(OBJS) $(deps)
+	cc -I../mini_typedefs -Wall -Wextra -ggdb3 -o exe $(OBJS) main_test.c $(deps) -lft -llist -l:structs.a
 
 %.o:	%.c
 	cc -I../mini_typedefs -Wall -Wextra -ggdb3 -c $< -o $@
