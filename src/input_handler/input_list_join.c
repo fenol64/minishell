@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:28:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 09:49:29 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:21:41 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ char	**matrix_from_lst(t_list2	*list)
 	index = 0;
 	while (list)
 	{
-		if (!tmp->data)
+		if (!list->data)
 			return (ft_perror(__func__, "list has null data")
-					, ft_free_matrix(matrix), NULL);
+				, ft_free_matrix(matrix), NULL);
 		matrix[index] = ft_strdup((char *)list->data);
 		if (!matrix[index])
 			return (perror(__func__), ft_free_matrix(matrix), NULL);

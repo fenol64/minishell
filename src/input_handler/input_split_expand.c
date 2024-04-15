@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 09:58:40 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:21:53 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_getenv(char *name, t_main *main)
 char	*remove_quotes(char *str)
 {
 	char	*tmp;
-	
+
 	if (!str)
 		return (ft_perror(__func__, ARGNULL), NULL);
 	if (enclosed_in_quotes(str))
@@ -113,7 +113,7 @@ static int	expand_single_quotes(t_list2 **list)
 {
 	char	*data;
 
-	if (!list || !*list->data)
+	if (!list || !(*list)->data)
 	{
 		ft_perror(__func__, ARGNULL);
 		exit(EXIT_FAILURE);

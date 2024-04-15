@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:19:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 10:46:10 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:22:13 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,9 @@ static t_list2	*valid_input_list(t_list2 *list, t_main *main)
 		return (lst_destroy2(list, free_token_node), NULL);
 	return (list);
 }
-/*
-	Gets a linked list with the parsed and expanded shell prompt input
-	where each node is classified by tokens.
-*/
+
+//	Gets a linked list with the parsed and expanded shell prompt input
+//	where each node is classified by tokens.
 t_list2	*get_true_input(const char *input, t_main *main)
 {
 	t_list2	*tmp;

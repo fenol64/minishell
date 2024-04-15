@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:01:43 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:21:34 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ char		**matrix_from_lst(t_list2	*list);
 char		*ft_strjoin_token_lst(t_list2 *list);
 char		*ft_strjoinlst(t_list2 *list);
 char		*ft_strjoinlstsep(t_list2 *list, const char *sep);
-
 
 #endif
