@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:28:34 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:46:40 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_main	*new_main(char **envp);
 t_token	*new_token(char *value, int type, void (*del)(void *));
 
 //	free_structs.c
+int		close_proc_files(t_proc *proc);
 void	free_main(t_main *main);
 void	free_file(t_file *file, void (*del)(void *arg));
 void	free_token(t_token *token, void (*del)(void *arg));

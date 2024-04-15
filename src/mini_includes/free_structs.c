@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:20:31 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 10:30:54 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:46:09 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	free_main(t_main *main)
 {
 	if (!main)
 		return ;
-	if (main->std_out != -1)
-		close(main->std_out);
-	if (main->std_in != -1)
-		close(main->std_in);
+	if (main->def_stdout != -1)
+		close(main->def_stdout);
+	if (main->def_stdin != -1)
+		close(main->def_stdin);
 	ft_free_matrix(main->envp);
 	free(main);
 }
@@ -47,4 +47,33 @@ void	free_proc(t_proc *proc, void (*del_arg)(void *arg))
 	close_proc_files(proc);
 	lst_destroy2(proc->argv, del_arg);
 	free(proc);
+}
+
+int	close_proc_files(t_proc *proc)
+{
+	t_file	*file;
+	t_list2	*tmp;
+	t_list2	*tmp2;
+
+	tmp = proc->infiles;
+	while (tmp)
+	{
+		file = (t_file *)tmp->data;
+		if (file->mode != -42 && file->fd != -1)
+			close(file->fd);
+		tmp = tmp->next;
+	}
+	tmp2 = proc->outfiles;
+	while (tmp2)
+	{
+		file = (t_file *)tmp2->data;
+		if (file->mode != -42 && file->fd != -1)
+			close(file->fd);
+		tmp2 = tmp2->next;
+	}
+	lst_destroy2(proc->infiles, del_file_node);
+	lst_destroy2(proc->outfiles, del_file_node);
+	proc->infiles = NULL;
+	proc->outfiles = NULL;
+	return (true);
 }
