@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:17:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 10:21:52 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:01:43 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@ t_main	*new_main(char **envp)
 	main->def_stdin = dup(STDIN_FILENO);
 	if (main->def_stdin == -1 || main->def_stdout == -1)
 		return (free_main(main), NULL);
-	main->envp = envp;
+	main->envp = cpy_envp(envp);
+	if (!main->envp)
+	{
+		close(main->def_stdin);
+		close(main->def_stdout);
+		free(main);
+		exit(EXIT_FAILURE);
+	}
 	ft_memset(main->exit_status, '\0', EXSTR * sizeof(char));
 	main->exit_status[0] = '0';
 	main->init_status = false;

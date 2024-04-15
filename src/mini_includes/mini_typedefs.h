@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:47:26 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:01:50 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,10 @@ void	free_proc(t_proc *proc, void (*del_arg)(void *arg));
 //	free_struc_node.c
 void	del_file_node(void *arg);
 void	free_token_node(void *arg);
+
+//	structs_utils.c
+char	**cpy_envp(char **envp);
 void	free_proc_list(t_proc **procs, void (*del)(void *arg));
+void	get_exit_str(unsigned char nbr, char *fstring);
 
 #endif
