@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:28:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/03 10:31:05 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 09:44:05 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ char	*ft_strjoin_token_lst(t_list2 *list)
 		return (ft_perror(__func__, ARGNULL), NULL);
 	while (tmp)
 	{
+		if (!tmp->data)
+			return (ft_perror(__func__, "list has null data"), NULL);
 		len += ft_strlen(((t_token *)tmp->data)->value);
 		tmp = tmp->next;
 	}
 	joined = malloc((len + 1) * sizeof(char));
-	*joined = '\0';
 	if (!joined)
 		return (perror(__func__), NULL);
+	*joined = '\0';
 	while (list)
 	{
 		ft_strcat(joined, ((t_token *)list->data)->value);
