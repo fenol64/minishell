@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:59:12 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 14:31:14 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:44:32 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_unset(t_proc *proc, t_main *main)
 {
-	char	opt[3];
+	char	opt[11];
 	t_list2	*tmp;
 
 	if (!proc->argv)
@@ -24,8 +24,8 @@ int	ft_unset(t_proc *proc, t_main *main)
 	get_exit_str(EXIT_FAILURE, main->exit_status);
 	if (has_invalid_opt(proc->argv))
 	{
-		opt[0] = 0;
-		ft_strlcat(opt, proc->argv->next->data, 3);
+		ft_strlcpy(opt, "unset: ", 9);
+		ft_strlcat(opt, proc->argv->next->data, 11 + 3);
 		return (ft_perror(opt, "invalid option"), 1);
 	}
 	tmp = proc->argv->next;
