@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 11:03:55 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:29:11 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,8 @@
 
 # include "../mini_includes/mini_typedefs.h"
 # include "../input_handler/input_handler.h"
-# include <fcntl.h>
-# include <sys/stat.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 
 //	proc_from_list.c
-
 t_proc	**get_procs(t_list2 *list, t_main *main);
 
 //	proc_creator_utils.c
