@@ -6,12 +6,16 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 10:31:52 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 10:38:19 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_TYPEDEFS_H
 # define MINI_TYPEDEFS_H
+
+//	deps
+# include "libft.h"
+# include "linked_lists.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -19,7 +23,7 @@
 
 # define EXSTR 4
 
-// header with typedefs that are used across the program
+//	header with typedefs that are used across the program
 
 //	token types
 typedef enum s_tk_name
