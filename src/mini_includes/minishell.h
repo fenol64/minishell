@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:08:49 by fnascime          #+#    #+#             */
-/*   Updated: 2024/04/15 10:58:55 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:26:55 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <sys/types.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 //	builtins:		shell's builtins cd, pwd, env, echo, exit, unset, export
 //	input_handler:	shell prompt parsing and expanding

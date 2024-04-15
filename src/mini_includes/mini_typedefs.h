@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 10:38:19 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:27:00 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # define EXSTR 4
 
