@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:17:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 13:01:43 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:42:47 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_main	*new_main(char **envp)
 	if (main->def_stdin == -1 || main->def_stdout == -1)
 		return (free_main(main), NULL);
 	main->envp = cpy_envp(envp);
+	main->procs = NULL;
 	if (!main->envp)
 	{
 		close(main->def_stdin);
