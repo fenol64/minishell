@@ -8,3 +8,5 @@ libft.a
 libft_debug.a
 liblist.a
 liblist_debug.a
+input_handler.a
+libraries-dev/
