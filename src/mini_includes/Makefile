@@ -1,6 +1,6 @@
 name	=	../libraries-dev/structs.a
 
-SRCS =	free_structs.c free_struct_node.c main_structs.c
+SRCS =	free_structs.c free_struct_node.c main_structs.c structs_utils.c
 
 OBJS = ${SRCS:.c=.o}
 
