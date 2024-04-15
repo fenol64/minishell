@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:27:55 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:28:34 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 
 # include <stdio.h>
 # include <errno.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/stat.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 
