@@ -6,13 +6,14 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:10:22 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 14:25:22 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:03:06 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include "../mini_includes/mini_typedefs.h"
 # include "../proc_creator/proc_creator.h"
 # include <linux/limits.h>
 
