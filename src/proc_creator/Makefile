@@ -1,4 +1,5 @@
-deps	=	-l../libraries-dev/libft_debug.a -l../libraries-dev/liblist_debug.a -l../libraries-dev/input_handler.a
+deps	=	-L../libraries-dev
+libs	=	-l:input_handler.a -l:structs.a -lft_debug -llist_debug -lreadline
 name	=	../libraries-dev/proc_creator.a
 
 SRCS =	proc_creator_utils.c proc_from_list.c proc_hdoc_expand.c proc_open_files.c \
@@ -8,15 +9,12 @@ OBJS = ${SRCS:.c=.o}
 
 all:	$(name)
 
-#exe:	$(OBJS)
-#	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) exe.a libft_debug.a liblist_debug.a -lreadline
-
 $(name):	$(OBJS)
-	ar -rc $(name) $(OBJS);
+	ar -rcs $(name) $(OBJS);
 	ranlib $(name)
 
-exe:	proc.a
-	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) main_test.c $(deps)
+exe:	$(OBJS)
+	cc -Wall -Wextra -ggdb3 -o exe $(OBJS) main_test.c $(deps) $(libs)
 
 %.o:	%.c
 	cc -Wall -Wextra -ggdb3 -c $< -o $@

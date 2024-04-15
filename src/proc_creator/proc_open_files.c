@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:14:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/05 14:24:48 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:45:59 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,6 @@
 
 static int	infile_exit(t_proc *proc);
 static int	outfile_exit(t_proc *proc);
-
-int	close_proc_files(t_proc *proc)
-{
-	t_file	*file;
-	t_list2	*tmp;
-	t_list2	*tmp2;
-
-	tmp = proc->infiles;
-	while (tmp)
-	{
-		file = (t_file *)tmp->data;
-		if (file->mode != -42 && file->fd != -1)
-			close(file->fd);
-		tmp = tmp->next;
-	}
-	tmp2 = proc->outfiles;
-	while (tmp2)
-	{
-		file = (t_file *)tmp2->data;
-		if (file->mode != -42 && file->fd != -1)
-			close(file->fd);
-		tmp2 = tmp2->next;
-	}
-	lst_destroy2(proc->infiles, del_file_node);
-	lst_destroy2(proc->outfiles, del_file_node);
-	proc->infiles = NULL;
-	proc->outfiles = NULL;
-	return (true);
-}
 
 int	open_proc_outfiles(t_proc *proc)
 {
