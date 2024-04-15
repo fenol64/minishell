@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 12:56:30 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:59:26 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:09:37 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	close_proc_files(t_proc *proc)
 	return (true);
 }
 
-void	get_exit_str(unsigned char nbr, char *fstring)
+void	get_exit_str(uint8_t nbr, char *fstring)
 {
 	size_t	rem;
 	size_t	index;

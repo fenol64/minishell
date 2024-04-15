@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 13:01:50 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:09:23 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <sys/stat.h>
+# include <stdint.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 
@@ -108,6 +109,6 @@ void	free_token_node(void *arg);
 //	structs_utils.c
 char	**cpy_envp(char **envp);
 void	free_proc_list(t_proc **procs, void (*del)(void *arg));
-void	get_exit_str(unsigned char nbr, char *fstring);
+void	get_exit_str(uint8_t nbr, char *fstring);
 
 #endif
