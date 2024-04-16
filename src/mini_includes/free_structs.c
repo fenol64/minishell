@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:20:31 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 15:57:53 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:56:34 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	free_main(t_main *main)
 		close(main->def_stdout);
 	if (main->def_stdin != -1)
 		close(main->def_stdin);
-	free_proc_list(main->procs, free);
-	ft_free_matrix(main->envp);
+	if (main->procs)
+		free_proc_list(main->procs, free);
+	if (main->envp)
+		ft_free_matrix(main->envp);
 	free(main);
 }
 

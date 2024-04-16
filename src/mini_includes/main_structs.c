@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:17:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 15:42:47 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:55:57 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,18 @@ t_main	*new_main(char **envp)
 	main = malloc(sizeof(t_main));
 	if (!main)
 		return (perror(__func__), NULL);
+	main->procs = NULL;
+	main->input_list = NULL;
+	main->envp = cpy_envp(envp);
 	main->def_stdout = dup(STDOUT_FILENO);
 	main->def_stdin = dup(STDIN_FILENO);
-	if (main->def_stdin == -1 || main->def_stdout == -1)
-		return (free_main(main), NULL);
-	main->envp = cpy_envp(envp);
-	main->procs = NULL;
-	if (!main->envp)
+	if (!main->envp || (main->def_stdin == -1 || main->def_stdout == -1))
 	{
-		close(main->def_stdin);
-		close(main->def_stdout);
-		free(main);
+		if (main->def_stdin != -1)
+			close(main->def_stdin);
+		if (main->def_stdout != -1)
+			close(main->def_stdout);
+		free_main(main);
 		exit(EXIT_FAILURE);
 	}
 	ft_memset(main->exit_status, '\0', EXSTR * sizeof(char));
@@ -67,13 +68,14 @@ t_file	*new_file(void)
 	return (file);
 }
 
-t_proc	*new_proc(void)
+t_proc	*new_proc(t_main *main)
 {
 	t_proc	*proc;
 
 	proc = malloc(sizeof(t_proc));
 	if (!proc)
 		return (perror(__func__), NULL);
+	proc->main = main;
 	proc->argv = NULL;
 	proc->envp = NULL;
 	proc->infiles = NULL;
