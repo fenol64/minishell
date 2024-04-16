@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:14:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:45:59 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:43:21 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ static int	outfile_exit(t_proc *proc)
 		return (lst_destroy2(proc->outfiles, del_file_node), false);
 	file->fd = open("/dev/null", O_RDWR);
 	file->name = ft_strdup("/dev/null");
-	if (!file->fd || !file->name)
-		exit(EXIT_FAILURE);
+	if (file->fd == -1 || !file->name)
+		return (free_main(proc->main), free_file(file, free), exit(1), 0);
 	return (true);
 }
 
@@ -104,9 +104,9 @@ static int	infile_exit(t_proc *proc)
 	proc->infiles = new_node2(file, del_file_node);
 	if (!proc->infiles || !file)
 		return (lst_destroy2(proc->infiles, del_file_node), false);
-	file->fd = open("/dev/null", O_RDWR);
+	file->fd = open("/dev/null", O_RDONLY);
 	file->name = ft_strdup("/dev/null");
-	if (!file->fd || !file->name)
-		exit(EXIT_FAILURE);
+	if (file->fd == -1 || !file->name)
+		return (free_main(proc->main), free_file(file, free), exit(1), 0);
 	return (false);
 }
