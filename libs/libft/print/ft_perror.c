@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:01:14 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/03/13 11:09:54 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:54:09 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_perror(const char *s1, const char *s2)
 {
-	char	buffer[1024];
+	static char	buffer[5128];
 
 	buffer[0] = '\0';
 	if (!s1 || !s2)
