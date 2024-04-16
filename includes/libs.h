@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.rio>         +#+  +:+       +#+        */
+/*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:09:36 by fnascime          #+#    #+#             */
-/*   Updated: 2024/03/12 17:14:15 by fnascime         ###   ########.fr       */
+/*   Updated: 2024/04/15 10:34:00 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@
 # include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:46:57 by fnascime          #+#    #+#             */
-/*   Updated: 2024/03/13 11:23:21 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:20:12 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char		*ft_strchrset(const char *str, const char *charset);
 char		*ft_strcat(char *dst, const char *src);
 char		*ft_stpcpy(char *dst, const char *src);
 char		*ft_strpdup(const char *start, const char *end);
+char		*ft_strndup(const char *s, size_t n);
 char		*ft_strsepjoin(const char *s1, const char *sep, const char *s2);
 
 // malloc functions
