@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:39:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:59:17 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:16:30 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ int	enclosed_in_quotes(const char *str)
 	const char	*quotes = "\"'";
 
 	return (ft_incharset(*str, quotes) && ft_strchr(str + 1, *str));
+}
+
+int	has_quote(const char *str)
+{
+	size_t	index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (ft_incharset(str[index], "\"'"))
+			return (true);
+		index++;
+	}
+	return (false);
 }
 
 t_tk_name	classify_token(const char *str, t_list2	*list)
