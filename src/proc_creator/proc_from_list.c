@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:08:07 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 13:38:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:10:29 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,28 @@ static int		append_to_proc(t_proc *procs, t_token *token,t_list2 *list);
 t_proc	**init_procs(t_list2 *list, t_main *main)
 {
 	int		index;
-	t_proc	**procs;
 
 	index = cmd_count(list);
-	procs = ft_calloc(sizeof(t_proc *), index + 1);
-	if (!procs)
+	main->procs = ft_calloc(sizeof(t_proc *), index + 1);
+	if (!main->procs)
 		return (perror(__func__), NULL);
 	while (index)
 	{
 		index--;
-		procs[index] = new_proc(main);
-		if (!procs[index])
-			return (free_proc_list(procs, free), NULL);
+		main->procs[index] = new_proc(main);
+		if (!main->procs[index])
+			return (free_proc_list(main->procs, free), NULL);
 	}
 	index = 0;
 	while (list)
 	{
-		if (!append_to_proc(procs[index], (t_token *)list->data, list))
-			return (free_proc_list(procs, free), NULL);
+		if (!append_to_proc(main->procs[index], (t_token *)list->data, list))
+			return (free_proc_list(main->procs, free), NULL);
 		else if (((t_token *)list->data)->type == PIPE)
 			index++;
 		list = list->next;
 	}
-	return (procs);
+	return (main->procs);
 }
 
 static int	get_proc_redirections(t_proc *proc, t_list2 *input_list)

@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:14:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 13:48:42 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/17 09:41:28 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@ static void	init_here_docs(t_proc **procs, t_main *main);
 static void	open_redirect_files(t_proc **procs);
 
 t_proc	**get_procs(t_list2 *list, t_main *main)
-{
-	t_proc	**procs;
-
+{;
 	if (!list || !main)
 		return (ft_perror(__func__, ARGNULL), NULL);
-	procs = init_procs(list, main);
-	if (!procs)
+	main->init_status = 1;
+	main->procs = init_procs(list, main);
+	main->init_status = 0;
+	if (!main->procs)
 		return (NULL);
-	init_here_docs(procs, main);
-	open_redirect_files(procs);
-	get_cmd_paths(procs, main);
-	return (procs);
+	init_here_docs(main->procs, main);
+	main->init_status = 1;
+	open_redirect_files(main->procs);
+	get_cmd_paths(main->procs, main);
+	main->init_status = 0;
+	return (main->procs);
 }
 
 void	init_here_docs(t_proc **procs, t_main *main)

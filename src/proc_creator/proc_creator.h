@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:01:17 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 12:19:19 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:26:12 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include "../mini_includes/mini_typedefs.h"
 # include "../input_handler/input_handler.h"
+# include <sys/wait.h>
+
+# define HDOC_EOF_WARN "here-document delimited by end-of-file (wanted `"
+# define HDOC_READ_SIZE 64
+# define HDOC_FATAL_ERROR 42
 
 //	proc_from_list.c
 t_proc	**init_procs(t_list2 *list, t_main *main);
