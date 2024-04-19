@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 12:21:53 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:10:17 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	expand_args(t_list2 *list, t_main *main, t_token *token)
 	{
 		if (expand_single_quotes(&list))
 			continue ;
-		list->data = (void *)remove_quotes((char *)list->data);
+		if (token->type != HERE_DOC_ARG)
+			list->data = (void *)remove_quotes((char *)list->data);
 		tmp_list = input_exp_split((char *)list->data);
 		if (!tmp_list)
 			return (lst_destroy2(list, free), false);
