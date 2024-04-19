@@ -6,13 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 13:16:23 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:17:34 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
 
-static int	press_enter(void)
+static void	press_enter(void)
 {
 	int	fd[2];
 
