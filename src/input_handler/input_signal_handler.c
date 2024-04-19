@@ -6,11 +6,27 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 13:17:34 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:46:41 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
+
+void	restore_fds(t_main *main)
+{
+	if (dup2(main->def_stdout, STDOUT_FILENO) == -1)
+	{
+		perror("Fatal error while restoring output");
+		free_main(main);
+		exit(EXIT_FAILURE);
+	}
+	if (dup2(main->def_stdin, STDIN_FILENO) == -1)
+	{
+		perror("Fatal error while restoring input");
+		free_main(main);
+		exit(EXIT_FAILURE);
+	}
+}
 
 static void	press_enter(void)
 {
