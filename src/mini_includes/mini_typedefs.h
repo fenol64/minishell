@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 12:58:13 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 11:50:46 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 # include <readline/readline.h>
 
 # define EXSTR 4
+
+extern static int		g_signal;
+typedef struct s_main	t_main;
+typedef struct s_proc	t_proc;
 
 //	header with typedefs that are used across the program
 
@@ -67,9 +71,6 @@ typedef struct s_file
 	input files, output files and environment.
 */
 
-typedef struct s_main t_main;
-typedef struct s_proc t_proc;
-
 struct s_proc
 {
 	int			pfd[2];
@@ -88,7 +89,6 @@ struct s_main
 {
 	int		def_stdin;
 	int		def_stdout;
-	int		init_status;
 	char	exit_status[EXSTR];
 	char	**envp;
 	t_proc	**procs;
