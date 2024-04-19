@@ -6,13 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 12:10:17 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:21:10 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
 
-static int	expand_single_quotes(t_list2 **list);
+static int	expand_single_quotes(t_list2 **list, t_token *token);
 
 char	*ft_getenv(char *name, t_main *main)
 {
@@ -88,18 +88,16 @@ int	expand_args(t_list2 *list, t_main *main, t_token *token)
 
 	while (list)
 	{
-		if (expand_single_quotes(&list))
+		if (expand_single_quotes(&list, token))
 			continue ;
-		if (token->type != HERE_DOC_ARG)
-			list->data = (void *)remove_quotes((char *)list->data);
+		list->data = (void *)remove_quotes((char *)list->data);
 		tmp_list = input_exp_split((char *)list->data);
 		if (!tmp_list)
 			return (lst_destroy2(list, free), false);
 		tmp = tmp_list;
 		while (tmp)
 		{
-			if (token->type != HERE_DOC_ARG)
-				tmp->data = (void *)expand_str((char *)tmp->data, main);
+			tmp->data = (void *)expand_str((char *)tmp->data, main);
 			tmp = tmp->next;
 		}
 		free(list->data);
@@ -110,7 +108,7 @@ int	expand_args(t_list2 *list, t_main *main, t_token *token)
 	return (true);
 }
 
-static int	expand_single_quotes(t_list2 **list)
+static int	expand_single_quotes(t_list2 **list, t_token *token)
 {
 	char	*data;
 
@@ -123,7 +121,8 @@ static int	expand_single_quotes(t_list2 **list)
 	data = (char *)(*list)->data;
 	if (enclosed_in_quotes(data) && *data == '\'')
 	{
-		(*list)->data = (void *)remove_quotes(data);
+		if (token->type != HERE_DOC_ARG)
+			(*list)->data = (void *)remove_quotes(data);
 		*list = (*list)->next;
 		return (true);
 	}
