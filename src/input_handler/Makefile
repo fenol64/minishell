@@ -4,7 +4,8 @@ libs	=	-l:structs.a -lft_debug -llist_debug
 name	=	../libraries-dev/input_handler.a
 
 SRCS =	input_split_primary.c input_split_utils.c input_split_secondary.c \
-		input_split_expand.c input_list_validation.c input_list_join.c
+		input_split_expand.c input_list_validation.c input_list_join.c \
+		input_signal_handler.c
 
 OBJS = ${SRCS:.c=.o}
 
