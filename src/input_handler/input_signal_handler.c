@@ -6,11 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 13:46:41 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:53:07 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
+
+int	g_signal = 0;
 
 void	restore_fds(t_main *main)
 {
@@ -44,23 +46,22 @@ static void	press_enter(void)
 		close(fd[1]);
 		exit(EXIT_FAILURE);
 	}
-	write(STDOUT_FILENO, "\n", 1);
-	close(fd[1]);
+	write(fd[1], "\n", 1);
 	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
 		perror("Fatal error while redirecting input");
 		close(fd[0]);
 		exit(EXIT_FAILURE);
 	}
+	close(fd[1]);
 	close(fd[0]);
 }
 
 static void	sig_handler(int signum)
 {
-	
 	g_signal = signum;
 	if (signum == SIGQUIT)
-		return ;
+		exit(1);
 	if (signum == SIGINT)
 		press_enter();
 }
@@ -73,7 +74,7 @@ void	setup_signals(void)
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGINT);
 	sigaddset(&sa.sa_mask, SIGQUIT);
-	sa.sa_flags = 0;
+	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGQUIT, &sa, NULL) == -1)
 	{
 		perror(__func__);
