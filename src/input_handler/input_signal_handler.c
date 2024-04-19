@@ -6,11 +6,12 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 14:53:07 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:14:38 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
+#include <termios.h>
 
 int	g_signal = 0;
 
@@ -46,7 +47,7 @@ static void	press_enter(void)
 		close(fd[1]);
 		exit(EXIT_FAILURE);
 	}
-	write(fd[1], "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
 	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
 		perror("Fatal error while redirecting input");
@@ -61,26 +62,31 @@ static void	sig_handler(int signum)
 {
 	g_signal = signum;
 	if (signum == SIGQUIT)
-		exit(1);
+		return ;
 	if (signum == SIGINT)
 		press_enter();
 }
 
 void	setup_signals(void)
 {
-	struct sigaction sa;
+	struct termios		term;
+	struct sigaction	sa1;
 
-	sa.sa_handler = sig_handler;
-	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_mask, SIGINT);
-	sigaddset(&sa.sa_mask, SIGQUIT);
-	sa.sa_flags = SA_RESTART;
-	if (sigaction(SIGQUIT, &sa, NULL) == -1)
+	if (tcgetattr(STDIN_FILENO, &term) == -1)
+		exit(EXIT_FAILURE);
+	term.c_cc[VQUIT] = _POSIX_VDISABLE;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
+		exit(EXIT_FAILURE);
+	sa1.sa_handler = sig_handler;
+	sigemptyset(&sa1.sa_mask);
+	sigaddset(&sa1.sa_mask, SIGINT);
+	sa1.sa_flags = 0;
+	if (sigaction(SIGINT, &sa1, NULL) == -1)
 	{
 		perror(__func__);
 		exit(EXIT_FAILURE);
 	}
-	if (sigaction(SIGINT, &sa, NULL) == -1)
+	if (sigaction(SIGQUIT, &sa1, NULL) == -1)
 	{
 		perror(__func__);
 		exit(EXIT_FAILURE);
