@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 14:34:17 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:10:21 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ struct s_main
 	int		def_stdin;
 	int		def_stdout;
 	char	exit_status[EXSTR];
+	char	*inp_line;
 	char	**envp;
 	t_proc	**procs;
 	t_list2	*input_list;

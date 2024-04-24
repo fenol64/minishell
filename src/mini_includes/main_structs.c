@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:17:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 11:54:54 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:11:02 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_main	*new_main(char **envp)
 		exit(EXIT_FAILURE);
 	}
 	ft_memset(main->exit_status, '\0', EXSTR * sizeof(char));
+	main->inp_line = NULL;
 	main->exit_status[0] = '0';
 	return (main);
 }

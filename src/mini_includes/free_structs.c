@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:20:31 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 13:04:00 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:10:41 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_main(t_main *main)
 		lst_destroy2(main->input_list, free_token_node);
 	if (main->envp)
 		ft_free_matrix(main->envp);
+	free(main->inp_line);
 	free(main);
 }
 
