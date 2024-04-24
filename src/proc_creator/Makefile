@@ -19,7 +19,7 @@ exe:	$(OBJS)
 %.o:	%.c
 	cc -Wall -Wextra -ggdb3 -c $< -o $@
 
-mclean: all clean
+mclean: all exe clean 
 
 clean:
 	rm -f $(OBJS)

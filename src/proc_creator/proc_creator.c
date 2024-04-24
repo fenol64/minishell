@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:14:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/17 09:41:28 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:51:30 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,43 +20,41 @@ t_proc	**get_procs(t_list2 *list, t_main *main)
 {;
 	if (!list || !main)
 		return (ft_perror(__func__, ARGNULL), NULL);
-	main->init_status = 1;
 	main->procs = init_procs(list, main);
-	main->init_status = 0;
 	if (!main->procs)
 		return (NULL);
 	init_here_docs(main->procs, main);
-	main->init_status = 1;
 	open_redirect_files(main->procs);
 	get_cmd_paths(main->procs, main);
-	main->init_status = 0;
 	return (main->procs);
 }
 
 void	init_here_docs(t_proc **procs, t_main *main)
 {
-	t_file	*file;
-	size_t	index;
+	int		index;
 	t_list2	*tmp;
 
-	index = 0;
-	while (procs[index])
+	index = -1;
+	while (procs[++index])
 	{
 		tmp = procs[index]->infiles;
 		while (tmp)
 		{
-			file = (t_file *)tmp->data;
-			if (file->mode == -42)
+			if (((t_file *)tmp->data)->mode == -42)
 			{
-				if (!get_here_doc(file, main))
+				if (!get_here_doc((t_file *)tmp->data, main))
 				{
-					free_main(main);
-					exit(EXIT_FAILURE);
+					if (g_signal == SIGINT)
+						restore_fds(main);
+					if (errno)
+					{
+						free_main(main);
+						exit(EXIT_FAILURE);
+					}
 				}
 			}
 			tmp = tmp->next;
 		}
-		index++;
 	}
 }
 
@@ -82,8 +80,11 @@ static void	get_cmd_paths(t_proc **procs, t_main *main)
 	{
 		if (!get_path(procs[index], main))
 		{
-			free_main(main);
-			exit(EXIT_FAILURE);
+			if (errno == ENOMEM)
+			{
+				free_main(main);
+				exit(EXIT_FAILURE);
+			}
 		}
 		index++;
 	}
