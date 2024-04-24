@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/09 10:51:57 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:08:45 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	ft_pwd(t_proc *proc, t_main *main)
 
 int	ft_exit(t_proc *proc, t_main *main)
 {
+	int	exit_status;
+
 	get_exit_str(1, main->exit_status);
 	if (!proc || !main || !proc->argv)
 		return (ft_perror(__func__, ARGINV), EXIT_FAILURE);
@@ -106,7 +108,9 @@ int	ft_exit(t_proc *proc, t_main *main)
 		ft_perror("exit\nminishel: exit", "too many arguments");
 	else
 		get_exit_str(0, main->exit_status);
-	exit(ft_atoi(main->exit_status));
+	exit_status = ft_atoi(main->exit_status);
+	free_main(main);
+	exit(exit_status);
 	return (EXIT_FAILURE);
 }
 
