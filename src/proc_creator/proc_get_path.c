@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:59:04 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 15:05:13 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:03:32 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ char	*get_path(t_proc *proc, t_main *main)
 		}
 		free(tmp);
 	}
-	return (ft_free_matrix(paths), NULL);
+	return (ft_free_matrix(paths), cmd);
 }
