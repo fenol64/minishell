@@ -6,12 +6,13 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/24 14:48:39 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:02:10 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
 #include <sys/ioctl.h>
+#include <termios.h>
 
 int	g_signal = 0;
 
