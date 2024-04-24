@@ -6,12 +6,12 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 16:14:38 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:48:39 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_handler.h"
-#include <termios.h>
+#include <sys/ioctl.h>
 
 int	g_signal = 0;
 
@@ -33,29 +33,7 @@ void	restore_fds(t_main *main)
 
 static void	press_enter(void)
 {
-	int	fd[2];
-
-	if (pipe(fd) == -1)
-	{
-		perror("Fatal error while setting up pipe");
-		exit(EXIT_FAILURE);
-	}
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
-	{
-		perror("Fatal error while redirecting output");
-		close(fd[0]);
-		close(fd[1]);
-		exit(EXIT_FAILURE);
-	}
-	write(STDOUT_FILENO, "\n", 1);
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-	{
-		perror("Fatal error while redirecting input");
-		close(fd[0]);
-		exit(EXIT_FAILURE);
-	}
-	close(fd[1]);
-	close(fd[0]);
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 }
 
 static void	sig_handler(int signum)
