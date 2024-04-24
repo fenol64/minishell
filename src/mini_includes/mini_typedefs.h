@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 11:50:46 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:34:17 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@
 # include <stdbool.h>
 # include <sys/stat.h>
 # include <stdint.h>
+# include <signal.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 
 # define EXSTR 4
 
-extern static int		g_signal;
+extern int				g_signal;
 typedef struct s_main	t_main;
 typedef struct s_proc	t_proc;
 
