@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:14:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/24 14:51:30 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:04:36 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	init_here_docs(t_proc **procs, t_main *main);
 static void	open_redirect_files(t_proc **procs);
 
 t_proc	**get_procs(t_list2 *list, t_main *main)
-{;
+{
 	if (!list || !main)
 		return (ft_perror(__func__, ARGNULL), NULL);
 	main->procs = init_procs(list, main);
@@ -80,11 +80,8 @@ static void	get_cmd_paths(t_proc **procs, t_main *main)
 	{
 		if (!get_path(procs[index], main))
 		{
-			if (errno == ENOMEM)
-			{
-				free_main(main);
-				exit(EXIT_FAILURE);
-			}
+			free_main(main);
+			exit(EXIT_FAILURE);
 		}
 		index++;
 	}
