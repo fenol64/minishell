@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/24 16:10:21 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:14:41 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ struct s_proc
 {
 	int			pfd[2];
 	char		**envp;
+	pid_t		pid;
 	t_main		*main;
 	t_list2		*argv;
 	t_list2		*outfiles;

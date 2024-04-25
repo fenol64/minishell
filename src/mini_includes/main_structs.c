@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:17:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/24 16:11:02 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:14:52 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_proc	*new_proc(t_main *main)
 	if (!proc)
 		return (perror(__func__), NULL);
 	proc->main = main;
+	proc->pid = -1;
 	proc->argv = NULL;
 	proc->envp = NULL;
 	proc->infiles = NULL;
