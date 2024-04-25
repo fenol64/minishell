@@ -6,20 +6,30 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:27:40 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 13:33:16 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:04:14 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "proc_runtime.h"
 
-size_t	proc_len(t_main *main)
+void	exit_shell(t_main *main)
 {
-	size_t	size;
+	size_t	index;
 
-	size = 0;
-	while (main->procs[size])
-		size++;
-	return (size);
+	index = 0;
+	perror("fatal error while creating processes");
+	while (main->procs[index])
+	{
+		if (main->procs[index]->pfd[0] != -1)
+			close(main->procs[index]->pfd[0]);
+		if (main->procs[index]->pfd[1] != -1)
+			close(main->procs[index]->pfd[1]);
+		if (main->procs[index]->pid != -1)
+			kill(SIGKILL, main->procs[index]->pid);
+		index++;
+	}
+	free_main(main);
+	exit(EXIT_FAILURE);
 }
 
 void	close_pipe(int pipe[2])

@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:29:25 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/24 16:19:26 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:56:52 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ static int	is_directory(const char *path, t_main *main)
 			return (true);
 	}
 	return (false);
+}
+
+size_t	proc_len(t_main *main)
+{
+	size_t	size;
+
+	size = 0;
+	while (main->procs[size])
+		size++;
+	return (size);
 }
 
 //	execute a command specified in proc's argv using execve

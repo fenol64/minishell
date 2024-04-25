@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 12:56:30 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 13:09:37 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:09:49 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**cpy_envp(char **envp)
 	return (cpy);
 }
 
-int	close_proc_files(t_proc *proc)
+int	\\close_proc_files(t_proc *proc)
 {
 	t_file	*file;
 	t_list2	*tmp;

@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:12:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 14:47:22 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:04:04 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,52 @@ int	ft_pipeline(t_main *main)
 }
 int	run_proc_primary(t_proc *proc, t_main *main)
 {
+	int		status;
 	t_file	*file;
 
 	if (pipe(proc->pfd) == -1)
-		return (perror(__func__), exit(0), EXIT_FAILURE);
+		exit_shell(main);
 	get_stdin(proc);
 	proc->pid = fork();
 	if (proc->pid == -1)
-		return (close_pipe(proc->pfd), EXIT_FAILURE);
+		exit_shell(main);
 	else if (proc->pid == 0)
 	{
-		close(proc->pfd[0]);
 		file = get_outputfile(proc);
 		if (file)
 			get_stdout(proc);
 		else
 			dup2(proc->pfd[1], STDOUT_FILENO);
-		close(proc->pfd[1]);
+		close_pipe(proc->pfd);
 		execute_cmd(proc, main);
+		status = ft_atoi(main->exit_status);
+		free_main(main);
+		exit(status);
 	}
-	close(proc->pfd[1]);
 	dup2(proc->pfd[0], STDIN_FILENO);
-	close(proc->pfd[0]);
+	close_pipe(proc->pfd);
 	return (EXIT_SUCCESS);
 }
 
 int	run_proc_secondary(t_proc *proc, t_main *main)
 {
+	int	status;
+
 	if (pipe(proc->pfd) == -1)
-		return (perror(__func__), exit(EXIT_FAILURE), 1);
+		exit_shell(main);
 	get_stdin(proc);
 	proc->pid = fork();
 	if (proc->pid == -1)
-		return (close_pipe(proc->pfd), EXIT_FAILURE);
+		exit_shell(main);
 	else if (proc->pid == 0)
 	{
 		close(proc->pfd[0]);
 		close(proc->pfd[1]);
 		get_stdout(proc);
 		execute_cmd(proc, main);
+		status = ft_atoi(main->exit_status);
+		free_main(main);
+		exit(status);
 	}
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
@@ -98,16 +105,16 @@ static int	get_stdin(t_proc *proc)
 	if (file && file->mode != -42)
 	{
 		if (dup2(file->fd, STDIN_FILENO) == -1)
-			return (perror(__func__), exit(EXIT_FAILURE), 1);
+			exit_shell(proc->main);
 		close(file->fd);
 		file->fd = -1;
 	}
 	else if (file && file->mode == -42)
 	{
 		if (write(proc->pfd[1], file->name, ft_strlen(file->name)) == -1)
-			return (perror(__func__), exit(EXIT_FAILURE), 1);
+			exit_shell(proc->main);
 		if (dup2(proc->pfd[0], STDIN_FILENO) == -1)
-			return (perror(__func__), exit(EXIT_FAILURE), 1);
+			exit_shell(proc->main);
 	}
 	return (0);
 }
