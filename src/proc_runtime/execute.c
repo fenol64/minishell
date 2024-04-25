@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:29:25 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 10:51:14 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:19:26 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	execute_builtin(t_proc *proc, t_main *main)
 	return (ft_perror(__func__, "What did you do!?"), EXIT_FAILURE);
 }
 
-int	execute_child(t_proc *proc, t_main *main)
+int	execute_cmd(t_proc *proc, t_main *main)
 {
 	int		status;
 	char	**argv;
