@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:01:14 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 12:07:40 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:56:38 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_perror(const char *s1, const char *s2)
 	if (*s1)
 		ft_strcat(buffer, s1);
 	if (*s1 && *s2)
-		ft_strcat(buffer, " : ");
+		ft_strcat(buffer, ": ");
 	if (*s2)
 		ft_strcat(buffer, s2);
 	ft_strcat(buffer, "\n");
