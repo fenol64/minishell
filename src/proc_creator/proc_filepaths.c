@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:00:56 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/02 15:02:08 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:38:13 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	is_builtin(char *cmd)
 	};
 
 	index = 0;
+	if (!cmd)
+		return (false);
 	while (builtins[index])
 	{
 		if (ft_strcmp(builtins[index], cmd) == 0)

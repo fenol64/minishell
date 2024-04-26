@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 10:14:50 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/16 13:43:21 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:53:47 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	open_proc_outfiles(t_proc *proc)
 		if (valid_filepath(file->name, file->mode))
 			file->fd = open(file->name, file->mode);
 		else
+		{
+			errno = 0;
 			file->fd = open(file->name, file->mode, 0644);
+		}
 		if (file->fd == -1)
 			return (perror("minishell: "), outfile_exit(proc));
 		tmp = tmp->next;

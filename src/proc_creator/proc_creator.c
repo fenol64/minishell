@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:14:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 10:15:03 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:52:45 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ static void	get_cmd_paths(t_proc **procs, t_main *main);
 static void	init_here_docs(t_proc **procs, t_main *main);
 static void	open_redirect_files(t_proc **procs);
 
-t_proc	**get_procs(t_list2 *list, t_main *main)
+t_proc	**get_procs(t_main *main)
 {
-	if (!list || !main)
+	if (!main || !main->inp_line)
 		return (ft_perror(__func__, ARGNULL), NULL);
-	main->procs = init_procs(list, main);
+	main->input_list = get_true_input(main->inp_line, main);
+	if (!main->input_list)
+		return (NULL);
+	main->procs = init_procs(main->input_list, main);
 	if (!main->procs)
 		return (NULL);
 	init_here_docs(main->procs, main);
@@ -78,7 +81,7 @@ static void	get_cmd_paths(t_proc **procs, t_main *main)
 	index = 0;
 	while (procs[index])
 	{
-		if (!get_path(procs[index], main))
+		if (!get_path(procs[index], main) && errno)
 		{
 			free_main(main);
 			exit(EXIT_FAILURE);

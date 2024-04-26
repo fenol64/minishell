@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/24 15:02:10 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:51:00 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,24 @@ void	restore_fds(t_main *main)
 static void	press_enter(void)
 {
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 1);
 }
 
 static void	sig_handler(int signum)
 {
 	g_signal = signum;
+	if (signum == SIGCHLD)
+	{
+		waitpid(-1, NULL, WNOHANG);
+		return ;
+	}
 	if (signum == SIGQUIT)
 		return ;
 	if (signum == SIGINT)
+	{
 		press_enter();
+	}
 }
 
 void	setup_signals(void)
@@ -56,10 +65,11 @@ void	setup_signals(void)
 	term.c_cc[VQUIT] = _POSIX_VDISABLE;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
 		exit(EXIT_FAILURE);
-	sa1.sa_handler = sig_handler;
+	sa1.sa_flags = SA_NOCLDSTOP;
 	sigemptyset(&sa1.sa_mask);
 	sigaddset(&sa1.sa_mask, SIGINT);
-	sa1.sa_flags = 0;
+	sigaddset(&sa1.sa_mask, SIGCHLD);
+	sa1.sa_handler = sig_handler;
 	if (sigaction(SIGINT, &sa1, NULL) == -1)
 	{
 		perror(__func__);

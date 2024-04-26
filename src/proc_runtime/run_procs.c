@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:12:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 15:04:04 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:58:53 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_stdout(t_proc *proc);
 
 int	ft_pipeline(t_main *main)
 {
-	int		status;
+	int		status = 0;
 	int		index;
 
 	if (proc_len(main) < 2 && is_builtin(main->procs[0]->argv->data))
@@ -36,8 +36,12 @@ int	ft_pipeline(t_main *main)
 	waitpid(main->procs[index]->pid, &status, 0);
 	if (WIFEXITED(status))
 		get_exit_str(WEXITSTATUS(status), main->exit_status);
-	while (--index > 0)
-		waitpid(main->procs[index]->pid, &status, 0);
+	index--;
+	while (index >= 0)
+	{
+		waitpid(-1, NULL, 0);
+		index--;
+	}
 	restore_fds(main);
 	return (EXIT_SUCCESS);
 }
@@ -82,8 +86,7 @@ int	run_proc_secondary(t_proc *proc, t_main *main)
 		exit_shell(main);
 	else if (proc->pid == 0)
 	{
-		close(proc->pfd[0]);
-		close(proc->pfd[1]);
+		close_pipe(proc->pfd);
 		get_stdout(proc);
 		execute_cmd(proc, main);
 		status = ft_atoi(main->exit_status);
@@ -92,8 +95,7 @@ int	run_proc_secondary(t_proc *proc, t_main *main)
 	}
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
-	close(proc->pfd[1]);
-	close(proc->pfd[0]);
+	close_pipe(proc->pfd);
 	return (EXIT_SUCCESS);
 }
 
@@ -115,6 +117,8 @@ static int	get_stdin(t_proc *proc)
 			exit_shell(proc->main);
 		if (dup2(proc->pfd[0], STDIN_FILENO) == -1)
 			exit_shell(proc->main);
+		close(proc->pfd[1]);
+		proc->pfd[1] = -1;
 	}
 	return (0);
 }

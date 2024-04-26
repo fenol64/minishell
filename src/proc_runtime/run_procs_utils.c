@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:27:40 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 15:04:14 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:57:28 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ void	exit_shell(t_main *main)
 
 void	close_pipe(int pipe[2])
 {
-	close(pipe[0]);
-	close(pipe[1]);
+	if (pipe[0] != -1)
+		close(pipe[0]);
+	if (pipe[1] != -1)
+		close(pipe[1]);
+	pipe[0] = -1;
+	pipe[1] = -1;
 }
 
 void	write_hdoc(t_file *file, int fd)
@@ -67,7 +71,6 @@ t_file	*get_inputfile(t_proc *proc)
 
 t_file	*get_outputfile(t_proc *proc)
 {
-	t_file	*file;
 	t_list2	*tmp;
 
 	if (!proc->outfiles)

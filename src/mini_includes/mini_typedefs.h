@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 10:14:41 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:17:19 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <stdint.h>
 # include <signal.h>
 # include <readline/history.h>
