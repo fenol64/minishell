@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/29 12:06:47 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:16:54 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	ft_strnumeric(const char *str)
 	index = 0;
 	if (!str)
 		return (false);
+	if ((str[0] == '-' || str[0] == '+') && str[1])
+		index++;
 	while (str[index])
 	{
 		if (!ft_isdigit(str[index]))
