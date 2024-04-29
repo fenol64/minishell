@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:29:25 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 14:56:52 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:56:44 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,22 @@ int	execute_builtin(t_proc *proc, t_main *main)
 	if (!ft_strcmp(proc->argv->data, "exit"))
 		return (ft_exit(proc, main));
 	return (ft_perror(__func__, "What did you do!?"), EXIT_FAILURE);
+}
+
+int	setup_builtin(t_proc *proc)
+{
+	t_file	*output;
+
+	output = get_outputfile(proc);
+	if (output)
+	{
+		if (dup2(output->fd, STDOUT_FILENO) == -1)
+		{
+			perror(__func__);
+			exit_shell(proc->main);
+		}
+	}
+	return (execute_cmd(proc, proc->main));
 }
 
 int	execute_cmd(t_proc *proc, t_main *main)

@@ -6,15 +6,15 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:12:21 by fnascime          #+#    #+#             */
-/*   Updated: 2024/04/26 14:34:04 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:09:16 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_includes/minishell.h"
-#include "mini_includes/mini_typedefs.h"
+#include "minishell.h"
+#include "mini_typedefs.h"
 
 static void	reset_main(t_main *main);
-static bool empty_cmd(t_proc **procs);
+static bool	empty_cmd(t_proc **procs);
 static bool	empty_line(t_main *main);
 
 int	main(int c, char **argv, char **envp)
@@ -28,7 +28,7 @@ int	main(int c, char **argv, char **envp)
 		main->inp_line = readline("Minishell$ ");
 		if (!main->inp_line && !errno)
 			break ;
-		else if (!main->inp_line && errno)
+		else if (!main->inp_line && errno && errno != ENOTTY)
 			return (perror(__func__), free_main(main), EXIT_FAILURE);
 		if (empty_line(main))
 			continue ;
@@ -58,7 +58,7 @@ static void	reset_main(t_main *main)
 	restore_fds(main);
 }
 
-static bool empty_cmd(t_proc **procs)
+static bool	empty_cmd(t_proc **procs)
 {
 	size_t	index;
 
@@ -74,18 +74,22 @@ static bool empty_cmd(t_proc **procs)
 
 static bool	empty_line(t_main *main)
 {
-	char	*line;
-	size_t	index;
+	char		*line;
+	size_t		index;
+	static int	last_signal = 0;
 
 	index = 0;
 	line = main->inp_line;
 	if (!line || !*line || g_signal == SIGINT)
 	{
-		free(line);
-		g_signal = 0;
 		main->inp_line = NULL;
-		return (true);
+		if ((g_signal == SIGINT && last_signal == 0))
+			write(STDERR_FILENO, "\n", 1);
+		last_signal = g_signal;
+		g_signal = 0;
+		return (restore_fds(main), free(line), rl_on_new_line(), true);
 	}
+	last_signal = 0;
 	while (line[index])
 	{
 		if (!ft_isspace(line[index]))
@@ -94,5 +98,5 @@ static bool	empty_line(t_main *main)
 	}
 	free(line);
 	main->inp_line = NULL;
-	return (true);
+	return (rl_on_new_line(), true);
 }

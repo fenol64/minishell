@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:07:27 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/26 14:17:19 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:40:19 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define EXSTR 4
 
-extern int				g_signal;
+extern volatile int		g_signal;
 typedef struct s_main	t_main;
 typedef struct s_proc	t_proc;
 

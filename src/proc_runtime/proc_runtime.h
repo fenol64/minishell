@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:26:53 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/25 14:58:04 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:56:54 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		valid_filepath(const char *path, int mode);
 
 //	execute.c
 int		execute_cmd(t_proc *proc, t_main *main);
+int		setup_builtin(t_proc *proc);
 size_t	proc_len(t_main *main);
 
 //	make_proc.c

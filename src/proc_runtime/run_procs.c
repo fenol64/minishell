@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:12:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/26 15:58:53 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:57:03 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_pipeline(t_main *main)
 	int		index;
 
 	if (proc_len(main) < 2 && is_builtin(main->procs[0]->argv->data))
-		return (execute_cmd(main->procs[0], main));
+		return (setup_builtin(main->procs[0]));
 	index = 0;
 	while (main->procs[index])
 	{

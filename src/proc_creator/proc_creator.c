@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:14:43 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/26 13:52:45 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:50:02 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_here_docs(t_proc **procs, t_main *main)
 				{
 					if (g_signal == SIGINT)
 						restore_fds(main);
-					if (errno)
+					if (errno && errno != ENOTTY)
 					{
 						free_main(main);
 						exit(EXIT_FAILURE);
