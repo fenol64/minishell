@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/29 12:14:43 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:18:36 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int	ft_exit(t_proc *proc, t_main *main)
 		ft_perror("exit\nminishel: exit", "too many arguments");
 		return (EXIT_FAILURE);
 	}
+	get_exit_str(ft_atoi(proc->argv->next->data), main->exit_status);
 	exit_status = ft_atoi(main->exit_status);
 	free_main(main);
 	exit(exit_status);
