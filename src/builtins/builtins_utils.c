@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/29 12:16:54 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:32:58 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	ft_strnumeric(const char *str)
 	size_t	index;
 
 	index = 0;
-	if (!str)
+	if (!str || !*str)
 		return (false);
 	if ((str[0] == '-' || str[0] == '+') && str[1])
 		index++;
