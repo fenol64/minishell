@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:12:37 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/29 11:57:03 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:32:49 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_stdout(t_proc *proc);
 
 int	ft_pipeline(t_main *main)
 {
-	int		status = 0;
+	int		status;
 	int		index;
 
 	if (proc_len(main) < 2 && is_builtin(main->procs[0]->argv->data))
@@ -33,17 +33,15 @@ int	ft_pipeline(t_main *main)
 		index++;
 	}
 	index--;
-	waitpid(main->procs[index]->pid, &status, 0);
-	if (WIFEXITED(status))
-		get_exit_str(WEXITSTATUS(status), main->exit_status);
-	index--;
-	while (index >= 0)
+	get_exit_str(130, main->exit_status);
+	if (waitpid(main->procs[index]->pid, &status, 0) > 0 && WIFEXITED(status))
 	{
-		waitpid(-1, NULL, 0);
+		get_exit_str(WEXITSTATUS(status), main->exit_status);
 		index--;
+		while (--index >= 0)
+			waitpid(-1, NULL, 0);
 	}
-	restore_fds(main);
-	return (EXIT_SUCCESS);
+	return (restore_fds(main), EXIT_SUCCESS);
 }
 int	run_proc_primary(t_proc *proc, t_main *main)
 {

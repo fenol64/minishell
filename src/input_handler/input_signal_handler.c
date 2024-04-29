@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:50:36 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/29 11:10:09 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:57:27 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,38 +58,32 @@ static void	sig_handler(int signum)
 			continue ;
 		return ;
 	}
-	if (signum == SIGQUIT)
-		return ;
 	if (signum == SIGINT)
 		discard_promp();
 }
 
 void	setup_signals(void)
 {
-	struct termios		term;
+	int					status;
 	struct sigaction	sa1;
+	struct sigaction	sa2;
 
-	if (tcgetattr(STDIN_FILENO, &term) == -1)
-		exit(EXIT_FAILURE);
-	term.c_cc[VQUIT] = _POSIX_VDISABLE;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
-		exit(EXIT_FAILURE);
+	status = 0;
 	sa1.sa_flags = SA_RESTART;
+	sa2.sa_flags = SA_RESTART;
 	sigemptyset(&sa1.sa_mask);
+	sigemptyset(&sa2.sa_mask);
 	sigaddset(&sa1.sa_mask, SIGINT);
 	sigaddset(&sa1.sa_mask, SIGCHLD);
 	sa1.sa_handler = sig_handler;
-	if (sigaction(SIGINT, &sa1, NULL) == -1)
-	{
-		perror(__func__);
-		exit(EXIT_FAILURE);
-	}
-	if (sigaction(SIGQUIT, &sa1, NULL) == -1)
-	{
-		perror(__func__);
-		exit(EXIT_FAILURE);
-	}
-	if (sigaction(SIGCHLD, &sa1, NULL) == -1)
+	sa2.sa_handler = SIG_IGN;
+	if (sigaction(SIGQUIT, &sa2, NULL) == -1 && !status)
+		status = -1;
+	if (sigaction(SIGINT, &sa1, NULL) == -1 && !status)
+		status = -1;
+	if (sigaction(SIGCHLD, &sa1, NULL) == -1 && !status)
+		status = -1;
+	if (status == -1)
 	{
 		perror(__func__);
 		exit(EXIT_FAILURE);

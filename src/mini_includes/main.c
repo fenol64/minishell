@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:12:21 by fnascime          #+#    #+#             */
-/*   Updated: 2024/04/29 11:09:16 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:33:33 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(int c, char **argv, char **envp)
 
 static void	reset_main(t_main *main)
 {
+	if (g_signal == SIGCHLD && !ft_strcmp(main->exit_status, "130"))
+		write(STDOUT_FILENO, "\n", 1);
 	free(main->inp_line);
 	free_proc_list(main->procs, free);
 	lst_destroy2(main->input_list, free_token_node);
