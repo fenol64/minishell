@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:10:22 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/15 11:03:06 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:07:02 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	**update_envp(char **envp, char *name, char *new_value);
 //	builtins_utils.c
 int		ts_putstr(const char *str);
 int		has_invalid_opt(t_list2 *argv);
+bool	ft_strnumeric(const char *str);
 char	**cpy_envp(char **envp);
 
 // builtin_export.c

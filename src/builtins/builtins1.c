@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:12:51 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/24 16:08:45 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:14:43 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,22 @@ int	ft_exit(t_proc *proc, t_main *main)
 {
 	int	exit_status;
 
-	get_exit_str(1, main->exit_status);
 	if (!proc || !main || !proc->argv)
+	{
+		get_exit_str(1, main->exit_status);
 		return (ft_perror(__func__, ARGINV), EXIT_FAILURE);
-	else if (lst_len2(proc->argv) > 1)
+	}
+	if (proc->argv->next && !ft_strnumeric(proc->argv->next->data))
+	{
+		get_exit_str(2, main->exit_status);
+		ft_perror("exit\nminishel: exit", "numeric argument required");
+	}
+	else if (lst_len2(proc->argv) > 2)
+	{
+		get_exit_str(130, main->exit_status);
 		ft_perror("exit\nminishel: exit", "too many arguments");
-	else
-		get_exit_str(0, main->exit_status);
+		return (EXIT_FAILURE);
+	}
 	exit_status = ft_atoi(main->exit_status);
 	free_main(main);
 	exit(exit_status);
