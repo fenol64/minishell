@@ -6,11 +6,11 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 09:41:15 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/30 09:46:50 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/30 09:47:17 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_handler"
+#include "input_handler.h"
 
 char	*cpy_env_name(const char *str)
 {
