@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 09:41:15 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/30 09:47:17 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/30 09:48:14 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*cpy_env_name(const char *str)
 		index++;
 	else if (str[0] && !str[1])
 		return (ft_strpdup(str, str + 1));
-	while (str[index] && ft_isalpha(str[index]))
+	while (str[index] && ft_isalnum(str[index]))
 		index++;
 	return (ft_strpdup(str, &str[index]));
 }
