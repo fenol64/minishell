@@ -9,7 +9,7 @@ COMMON_SRCS	:=	free_struct_node.c free_structs.c main_structs.c structs_utils.c 
 INP_DIR		:=	input_handler/
 INP_SRCS	:=	input_list_validation.c input_list_join.c input_split_expand.c \
 				input_split_primary.c input_split_secondary.c input_split_utils.c \
-				input_signal_handler.c \
+				input_signal_handler.c input_split_secondary_helper.c \
 
 PROC_DIR	:=	proc_creator/
 PROC_SRCS	:=	proc_filepaths.c proc_from_list.c proc_heredoc.c \

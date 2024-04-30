@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:42:54 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 12:21:10 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/30 09:57:42 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_getenv(char *name, t_main *main)
 	{
 		if (!ft_strchr(envp[index], '='))
 			return (ft_perror(__func__, "Env doesn't have equal sign"), NULL);
-		var_size = ft_strchr(envp[index], '=') - envp[index];
+		var_size = ft_strlen(name);
 		if (!ft_strncmp(envp[index], name, var_size / sizeof(char)))
 			return (ft_strchr(envp[index], '=') + sizeof(char));
 		index++;
