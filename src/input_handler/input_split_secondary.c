@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:37:05 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/29 15:00:21 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/30 09:43:36 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_list2	*input_exp_split(const char *str)
 		if (ft_incharset(str[i], "'\""))
 			token = ft_strpdup(&str[i], &str[i + 1]);
 		else if (str[i] == '$')
-			token = ft_strpdup(&str[i], ft_strchrset(&str[i + 1], delimet(1)));
+			token = cpy_env_name(&str[i]);
 		else
 			token = ft_strpdup(&str[i], ft_strchrset(&str[i + 1], delimet(0)));
 		node = new_node2(token, free);

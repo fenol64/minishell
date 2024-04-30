@@ -6,7 +6,7 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:13 by paulhenr          #+#    #+#             */
-/*   Updated: 2024/04/19 13:46:23 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/30 09:43:11 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,8 @@ char		*ft_strjoinlstsep(t_list2 *list, const char *sep);
 //	input_signal_handler.c
 void		setup_signals(void);
 void		restore_fds(t_main *main);
+
+//	input_split_secondary_helper.c
+char	*cpy_env_name(const char *str);
 
 #endif
