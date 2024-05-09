@@ -104,6 +104,7 @@ char		*ft_stpcpy(char *dst, const char *src);
 char		*ft_strpdup(const char *start, const char *end);
 char		*ft_strndup(const char *s, size_t n);
 char		*ft_strsepjoin(const char *s1, const char *sep, const char *s2);
+char    	*ft_strndup(const char *s, size_t n);
 
 // malloc functions
 char		*ft_strdup(const char *s);
