@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   input_split_secondary_helper.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 14:08:49 by fnascime          #+#    #+#             */
-/*   Updated: 2024/03/21 12:51:43 by paulhenr         ###   ########.fr       */
+/*   Created: 2024/04/30 09:41:15 by paulhenr          #+#    #+#             */
+/*   Updated: 2024/04/30 09:48:14 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "input_handler.h"
 
-# include "libs.h"
+char	*cpy_env_name(const char *str)
+{
+	size_t	index;
 
-#endif
+	index = 0;
+	if (str[0] && str[1])
+		index++;
+	else if (str[0] && !str[1])
+		return (ft_strpdup(str, str + 1));
+	while (str[index] && ft_isalnum(str[index]))
+		index++;
+	return (ft_strpdup(str, &str[index]));
+}

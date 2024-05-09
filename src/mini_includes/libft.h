@@ -6,13 +6,14 @@
 /*   By: paulhenr <paulhenr@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:46:57 by fnascime          #+#    #+#             */
-/*   Updated: 2024/04/15 12:20:12 by paulhenr         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:19:17 by paulhenr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "list_typedefs.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
@@ -38,12 +39,6 @@
 # endif
 
 typedef int	t_bool;
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 int			ft_putchar(char c);
 int			ft_putstr(char *s);
@@ -104,7 +99,6 @@ char		*ft_stpcpy(char *dst, const char *src);
 char		*ft_strpdup(const char *start, const char *end);
 char		*ft_strndup(const char *s, size_t n);
 char		*ft_strsepjoin(const char *s1, const char *sep, const char *s2);
-char    	*ft_strndup(const char *s, size_t n);
 
 // malloc functions
 char		*ft_strdup(const char *s);

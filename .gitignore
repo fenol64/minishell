@@ -1,1 +1,12 @@
 *.o
+exe
+exe.a
+main_test.c
+proc.a
+a.out
+libft.a
+libft_debug.a
+liblist.a
+liblist_debug.a
+input_handler.a
+libraries-dev/
